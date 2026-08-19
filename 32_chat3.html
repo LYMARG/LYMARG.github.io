@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信聊天 · 导师</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #e8e8e8;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .chat-window {
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .chat-header {
+            background: #07c160;
+            color: #fff;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chat-header .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .chat-header .name { font-weight: 600; font-size: 15px; }
+        .chat-header .status { font-size: 11px; opacity: 0.7; }
+        .chat-body {
+            padding: 16px;
+            min-height: 280px;
+            background: #f7f9fc;
+        }
+        .msg {
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+        .msg .bubble {
+            max-width: 80%;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+        .msg.out .bubble {
+            background: #95ec69;
+            color: #333;
+            align-self: flex-end;
+        }
+        .msg.in .bubble {
+            background: #fff;
+            color: #333;
+            align-self: flex-start;
+            border: 1px solid #e8e8e8;
+        }
+        .msg .time {
+            font-size: 10px;
+            color: #999;
+            margin-top: 2px;
+            padding: 0 4px;
+        }
+        .msg.out .time { align-self: flex-end; }
+        .msg.in .time { align-self: flex-start; }
+        .chat-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #e8edf5;
+            background: #fff;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #07c160;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.06);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.12);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.3); }
+        .hl { color: #cc3300; font-weight: bold; }
+        .warn { color: #cc5500; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="chat-window">
+    <div class="chat-header">
+        <div class="avatar">👨‍🏫</div>
+        <div>
+            <div class="name">张教授</div>
+            <div class="status">在线 · 微信</div>
+        </div>
+    </div>
+    <div class="chat-body">
+
+        <div class="msg in">
+            <div class="bubble">小林，听说你在查北郊研究所的事？</div>
+            <span class="time">15:23</span>
+        </div>
+
+        <div class="msg out">
+            <div class="bubble">张老师，您知道那个地方？</div>
+            <span class="time">15:24</span>
+        </div>
+
+        <div class="msg in">
+            <div class="bubble">我知道的比你想象的多。<br>那个研究所是我导师 <span class="hl">陈远</span> 工作过的地方。</div>
+            <span class="time">15:26</span>
+        </div>
+
+        <div class="msg out">
+            <div class="bubble">什么？您导师是陈远？？</div>
+            <span class="time">15:27</span>
+        </div>
+
+        <div class="msg in">
+            <div class="bubble">是的。他2009年失踪了。<br>我一直在查这件事。<br>你看到的那些报道，都是真的。</div>
+            <span class="time">15:29</span>
+        </div>
+
+        <div class="msg out">
+            <div class="bubble">为什么您从来没告诉过我？</div>
+            <span class="time">15:30</span>
+        </div>
+
+        <div class="msg in">
+            <div class="bubble">因为这件事 <span class="warn">太危险</span>。<br>我本来想保护你。<br>但你既然已经查到了，我也不再瞒你。</div>
+            <span class="time">15:32</span>
+        </div>
+
+        <div class="msg in">
+            <div class="bubble">听我说 —— <span class="hl">2047 不是密码</span>。<br>它是一个 <span class="warn">坐标</span>。<br>指向北纬 20.47° 的某个地方。<br>那才是真正的 "回声" 计划所在地。</div>
+            <span class="time">15:35</span>
+        </div>
+
+        <div class="msg out">
+            <div class="bubble">……北纬 20.47°？那是哪里？</div>
+            <span class="time">15:36</span>
+        </div>
+
+        <div class="msg in">
+            <div class="bubble">自己去查。<br>你已经有足够的线索了。<br>—— 小心。有人在监视你。</div>
+            <span class="time">15:38</span>
+        </div>
+
+        <div class="msg out">
+            <div class="bubble">张老师？</div>
+            <span class="time">15:40</span>
+        </div>
+
+        <div class="msg in" style="opacity:0.4;">
+            <div class="bubble" style="background:#eee;">（用户已下线）</div>
+            <span class="time">15:41</span>
+        </div>
+
+    </div>
+    <div class="chat-footer">
+        💬 聊天记录已保存 · 2023年9月14日
+        <br>
+        <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+    </div>
+</div>
+
+<div class="page-id">[ 32 / 45 ]</div>
+<div class="nav-links">
+    <a href="31_chat2.html">← 上一页</a>
+    <a href="33_chat4.html">下一页 →</a>
+</div>
+
+</body>
+</html>

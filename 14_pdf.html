@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>报告.pdf · 需要密码</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .menu-bar {
+            background: #d0d0d0;
+            padding: 2px 10px;
+            border-bottom: 1px solid #a0a0a0;
+            font-size: 12px;
+            display: flex;
+            gap: 16px;
+        }
+        .menu-bar span { cursor: default; }
+        .content {
+            padding: 24px 20px;
+            text-align: center;
+            background: #fff;
+            min-height: 220px;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            margin: 6px 10px 10px 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .content .icon { font-size: 48px; margin-bottom: 8px; }
+        .content .title { font-size: 16px; font-weight: 600; color: #333; }
+        .content .sub { font-size: 13px; color: #888; margin-top: 4px; }
+        .content .password-area {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .content .password-area input {
+            padding: 8px 14px;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            font-size: 14px;
+            width: 180px;
+            font-family: 'Courier New', monospace;
+            outline: none;
+            background: #fff;
+        }
+        .content .password-area input:focus {
+            border-color: #000080;
+        }
+        .content .password-area button {
+            padding: 8px 24px;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .content .password-area button:hover { background: #d5d5d5; }
+        .content .error {
+            color: #cc3300;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+        .content .hint {
+            margin-top: 14px;
+            font-size: 12px;
+            color: #999;
+        }
+        .content .hint .hl { color: #000080; }
+        .btn-row {
+            padding: 8px 10px 12px 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-row .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 4px 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-row .btn:hover { background: #d5d5d5; }
+        .btn-row .btn.primary {
+            background: #000080;
+            color: #fff;
+            border-color: #4040a0 #000050 #000050 #4040a0;
+        }
+        .btn-row .btn.primary:hover { background: #0000a0; }
+        .status-bar {
+            background: #d0d0d0;
+            border-top: 1px solid #a0a0a0;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.15);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>📄 报告.pdf · Adobe Reader</span>
+        <span class="close" onclick="window.location.href='08_documents.html'">✕</span>
+    </div>
+    <div class="menu-bar">
+        <span>文件(F)</span>
+        <span>编辑(E)</span>
+        <span>视图(V)</span>
+        <span>工具(T)</span>
+        <span>帮助(H)</span>
+    </div>
+    <div class="content">
+        <div class="icon">🔒</div>
+        <div class="title">此文档受密码保护</div>
+        <div class="sub">"北郊声学研究中心 · 内部报告.pdf"</div>
+
+        <div class="password-area">
+            <input type="password" id="pdfPass" placeholder="输入密码" onkeydown="if(event.key==='Enter') checkPdfPass()">
+            <button onclick="checkPdfPass()">解锁</button>
+        </div>
+        <div class="error" id="pdfError">❌ 密码错误</div>
+
+        <div class="hint">
+            💡 提示：密码是 <span class="hl">四个字母</span>，你在笔记3.txt 里见过。
+        </div>
+    </div>
+    <div class="btn-row">
+        <span class="btn" onclick="alert('🔍 提示：笔记3.txt 中的十六进制 45 43 48 4F 转 ASCII 为 ECHO')">❓ 提示</span>
+        <span class="btn primary" onclick="window.location.href='15_folder_locked.html'">📄 下一页 →</span>
+    </div>
+    <div class="status-bar">
+        <span>📄 报告.pdf</span>
+        <span>已加密 · 2.4 MB</span>
+    </div>
+</div>
+
+<div class="page-id">[ 14 / 45 ]</div>
+<div class="nav-links">
+    <a href="13_excel.html">← 上一页</a>
+    <a href="15_folder_locked.html">下一页 →</a>
+</div>
+
+<script>
+    function checkPdfPass() {
+        const input = document.getElementById('pdfPass').value;
+        const error = document.getElementById('pdfError');
+        if (input === 'ECHO' || input === 'echo') {
+            error.style.display = 'none';
+            alert('✅ 密码正确！\n\n📄 报告内容:\n\n"北郊声学研究中心于2009年关闭。\n主要研究项目：声音留存（ECHO计划）。\n有证据表明，该项目仍在暗中进行。\n\n—— 内部报告 · 机密 ——"');
+        } else {
+            error.style.display = 'block';
+            document.getElementById('pdfPass').value = '';
+        }
+    }
+</script>
+
+</body>
+</html>

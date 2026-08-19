@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>便签⑥</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .sticky {
+            background: #ffffee;
+            padding: 40px 35px;
+            max-width: 420px;
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 4px 4px 20px rgba(0,0,0,0.2);
+            transform: rotate(2deg);
+            border: 1px solid #e8e8a0;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+        }
+        .sticky .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 16px;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 12px;
+        }
+        .sticky .content {
+            font-size: 16px;
+            line-height: 2;
+            color: #333;
+            min-height: 120px;
+        }
+        .sticky .content .hl { color: #000080; font-weight: bold; }
+        .sticky .content .big { font-size: 26px; font-weight: bold; color: #000080; text-align: center; display: block; margin: 8px 0; }
+        .sticky .footer {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+            border-top: 1px dashed #ddd;
+            padding-top: 10px;
+        }
+        .sticky .nav-buttons {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            border-top: 1px solid #eee;
+            padding-top: 14px;
+        }
+        .sticky .nav-buttons a {
+            display: inline-block;
+            padding: 6px 20px;
+            background: #e8e8e8;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: 'Segoe UI', sans-serif;
+            transition: 0.2s;
+            border: 1px solid #ccc;
+        }
+        .sticky .nav-buttons a:hover {
+            background: #ddd;
+            border-color: #999;
+        }
+        .sticky .nav-buttons a.next {
+            background: #000080;
+            color: #fff;
+            border-color: #000060;
+        }
+        .sticky .nav-buttons a.next:hover {
+            background: #0000a0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .back-link:hover { color: #000; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sticky">
+    <div class="title">📌 便签 #6</div>
+    <div class="content">
+        终于想通了。<br>
+        <br>
+        <span class="hl">密码是她的生日。</span><br>
+        <br>
+        E: 驱动器的密码不是 2047。<br>
+        2047 是指向 <span class="hl">"回声计划"</span> 的线索。<br>
+        真正的密码是——<br>
+        <br>
+        林昭的生日。<br>
+        <br>
+        2001年9月14日。<br>
+        <br>
+        <span style="font-size:20px;font-weight:bold;color:#000080;display:block;text-align:center;margin:6px 0;">0914</span><br>
+        <br>
+        <span style="color:#888;font-size:14px;">我试了一下。打开了。</span>
+    </div>
+    <div class="footer">—— 林昭 · 2023.09.14</div>
+
+    <!-- ✅ 这里加了更明显的导航按钮 -->
+    <div class="nav-buttons">
+        <a href="20_sticky5.html">← 上一页</a>
+        <a href="22_diary01.html" class="next">下一页 →</a>
+    </div>
+
+    <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+</div>
+
+<div class="page-id">[ 21 / 45 ]</div>
+
+</body>
+</html>

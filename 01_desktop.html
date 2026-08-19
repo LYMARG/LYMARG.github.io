@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桌面</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #008080;
+            min-height: 100vh;
+            font-family: 'Microsoft Sans Serif', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            overflow: hidden;
+            user-select: none;
+        }
+        .desktop {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            padding: 20px;
+        }
+        .icon {
+            display: inline-block;
+            text-align: center;
+            width: 80px;
+            padding: 8px 4px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 12px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            text-decoration: none;
+            transition: 0.1s;
+            margin: 4px;
+            vertical-align: top;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .icon:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: rgba(255,255,255,0.3);
+        }
+        .icon .ico { font-size: 44px; display: block; margin-bottom: 4px; }
+        .icon .label { word-wrap: break-word; line-height: 1.3; }
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #c0c0c0;
+            border-top: 2px solid #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            z-index: 100;
+        }
+        .taskbar .start {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 2px 16px 2px 8px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: default;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .taskbar .start .winlogo { font-size: 16px; }
+        .taskbar .time {
+            margin-left: auto;
+            font-size: 12px;
+            padding: 2px 12px;
+            border: 1px solid #808080;
+            background: #d0d0d0;
+            cursor: default;
+        }
+        .taskbar .tray { display: flex; gap: 4px; margin-left: 8px; }
+        .taskbar .tray span { cursor: default; font-size: 14px; }
+        .recycle-hint {
+            position: absolute;
+            bottom: 60px;
+            right: 20px;
+            color: rgba(255,255,255,0.2);
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+        }
+        .page-id {
+            position: fixed;
+            bottom: 52px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.05);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+            pointer-events: none;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 52px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.15);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: rgba(255,255,255,0.5);
+        }
+        .window {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #c0c0c0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            min-width: 420px;
+            max-width: 600px;
+            z-index: 50;
+            display: none;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.6);
+        }
+        .window.active { display: block; }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: default;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 18px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .win-body { padding: 20px; background: #d0d0d0; font-size: 14px; line-height: 1.8; }
+        .win-body .hl { color: #000080; font-weight: bold; }
+        .win-body .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 4px 20px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 12px;
+            display: inline-block;
+        }
+        .win-body .btn:hover { background: #d5d5d5; }
+        .win-body textarea {
+            width: 100%;
+            height: 80px;
+            background: #fff;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            padding: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            resize: none;
+        }
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 40;
+            display: none;
+        }
+        .overlay.active { display: block; }
+        .recycle-icon .ico { font-size: 44px; }
+        .recycle-icon .badge {
+            background: #ff4444;
+            color: #fff;
+            font-size: 9px;
+            padding: 1px 6px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 2px;
+        }
+        .desktop-bg-text {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.03);
+            font-size: 80px;
+            font-weight: bold;
+            letter-spacing: 20px;
+            font-family: 'Courier New', monospace;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="desktop" id="desktop">
+    <!-- 桌面背景文字 -->
+    <div class="desktop-bg-text">ECHO</div>
+
+    <!-- 桌面图标 -->
+    <a href="#" class="icon" onclick="openWindow('mycomputer')">
+        <span class="ico">🖥️</span>
+        <span class="label">我的电脑</span>
+    </a>
+
+    <a href="#" class="icon recycle-icon" onclick="openWindow('recycle')">
+        <span class="ico">🗑️</span>
+        <span class="label">回收站</span>
+        <span class="badge">1</span>
+    </a>
+
+    <a href="#" class="icon" onclick="openWindow('documents')">
+        <span class="ico">📁</span>
+        <span class="label">我的文档</span>
+    </a>
+
+    <a href="#" class="icon" onclick="openWindow('sticky')">
+        <span class="ico">📌</span>
+        <span class="label">便签</span>
+    </a>
+
+    <a href="#" class="icon" onclick="openWindow('cmd')">
+        <span class="ico">⬛</span>
+        <span class="label">命令提示符</span>
+    </a>
+
+    <!-- 右下角提示 -->
+    <div class="recycle-hint">◆ 回收站中有 1 个已删除文件 ◆</div>
+</div>
+
+<!-- 遮罩 -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ===== 窗口：回收站 ===== -->
+<div class="window" id="win_recycle">
+    <div class="win-title"><span>🗑️ 回收站</span><span class="close" onclick="closeWindow('recycle')">✕</span></div>
+    <div class="win-body">
+        <div style="border-bottom:1px solid #999;padding-bottom:8px;margin-bottom:8px;font-size:12px;color:#666;">
+            此文件夹包含已删除的项目。
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:8px;border:1px solid #ddd;background:#e8e8e8;border-radius:2px;cursor:pointer;" onclick="restoreFile()">
+            <span style="font-size:24px;">📄</span>
+            <div style="flex:1;">
+                <div style="font-weight:bold;">readme.txt</div>
+                <div style="font-size:11px;color:#666;">大小: 2KB · 删除日期: 2023-09-14</div>
+            </div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="btn" onclick="restoreFile()">♻️ 还原此项目</span>
+            <span class="btn" onclick="alert('⚠️ 无法彻底删除。该文件被系统保护。')">🗑️ 彻底删除</span>
+        </div>
+        <div id="restoreMsg" style="margin-top:10px;color:#008000;display:none;font-weight:bold;">✅ 文件已还原到桌面</div>
+    </div>
+</div>
+
+<!-- ===== 窗口：我的电脑 ===== -->
+<div class="window" id="win_mycomputer">
+    <div class="win-title"><span>🖥️ 我的电脑</span><span class="close" onclick="closeWindow('mycomputer')">✕</span></div>
+    <div class="win-body">
+        <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;padding:8px 0;">
+            <div style="text-align:center;padding:12px;border:1px solid #ddd;border-radius:4px;width:85px;background:#fff;">
+                <div style="font-size:32px;">💾</div>
+                <div style="font-size:12px;font-weight:500;">C: 盘</div>
+                <div style="font-size:10px;color:#666;">18.4GB / 80GB</div>
+            </div>
+            <div style="text-align:center;padding:12px;border:1px solid #ddd;border-radius:4px;width:85px;background:#fff;">
+                <div style="font-size:32px;">💿</div>
+                <div style="font-size:12px;font-weight:500;">D: 盘</div>
+                <div style="font-size:10px;color:#666;">CD-ROM</div>
+            </div>
+            <div style="text-align:center;padding:12px;border:1px solid #ddd;border-radius:4px;width:85px;background:#fffbe6;border-color:#ffd700;">
+                <div style="font-size:32px;">🔒</div>
+                <div style="font-size:12px;font-weight:500;color:#cc5500;">E: 盘</div>
+                <div style="font-size:10px;color:#cc5500;">已加密</div>
+            </div>
+        </div>
+        <div style="border-top:1px solid #ddd;padding-top:10px;font-size:12px;color:#666;">
+            ⚠️ E: 驱动器已加密。需要密码才能访问。
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#999;">
+            📍 此电脑 &gt; 本地磁盘 (C:) &gt; Users &gt; 林昭
+        </div>
+    </div>
+</div>
+
+<!-- ===== 窗口：我的文档 ===== -->
+<div class="window" id="win_documents">
+    <div class="win-title"><span>📁 我的文档</span><span class="close" onclick="closeWindow('documents')">✕</span></div>
+    <div class="win-body">
+        <div style="display:flex;flex-direction:column;gap:4px;">
+            <a href="#" style="display:flex;align-items:center;gap:10px;padding:6px;text-decoration:none;color:#000;border-radius:2px;" onmouseover="this.style.background='#e8e8e8'" onmouseout="this.style.background='transparent'" onclick="openWindow('notepad')">
+                <span>📄</span> 日记.txt <span style="color:#666;font-size:11px;margin-left:auto;">修改于 2023-09-14</span>
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:10px;padding:6px;text-decoration:none;color:#000;border-radius:2px;opacity:0.7;" onmouseover="this.style.background='#e8e8e8'" onmouseout="this.style.background='transparent'" onclick="openWindow('notepad2')">
+                <span>📄</span> 笔记2.txt <span style="color:#666;font-size:11px;margin-left:auto;">修改于 2023-09-12</span>
+            </a>
+            <a href="#" style="display:flex;align-items:center;gap:10px;padding:6px;text-decoration:none;color:#000;border-radius:2px;opacity:0.7;" onmouseover="this.style.background='#e8e8e8'" onmouseout="this.style.background='transparent'" onclick="openWindow('notepad3')">
+                <span>📄</span> 笔记3.txt <span style="color:#666;font-size:11px;margin-left:auto;">修改于 2023-09-10</span>
+            </a>
+            <div style="display:flex;align-items:center;gap:10px;padding:6px;border-radius:2px;opacity:0.4;cursor:not-allowed;background:#f0f0f0;">
+                <span>📄</span> 论文.docx <span style="color:#999;font-size:11px;margin-left:auto;">已损坏</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:6px;border-radius:2px;opacity:0.4;cursor:not-allowed;background:#f0f0f0;">
+                <span>📁</span> 备份 <span style="color:#999;font-size:11px;margin-left:auto;">空</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:6px;border-radius:2px;opacity:0.5;cursor:not-allowed;background:#fffbe6;">
+                <span>🔒</span> 加密文件夹 <span style="color:#cc5500;font-size:11px;margin-left:auto;">需要密码</span>
+            </div>
+        </div>
+        <div style="border-top:1px solid #ddd;padding-top:10px;margin-top:8px;font-size:11px;color:#666;">
+            📍 C:\Users\linzhao\Documents
+        </div>
+    </div>
+</div>
+
+<!-- ===== 窗口：记事本（日记.txt） ===== -->
+<div class="window" id="win_notepad">
+    <div class="win-title"><span>📝 日记.txt - 记事本</span><span class="close" onclick="closeWindow('notepad')">✕</span></div>
+    <div class="win-body">
+        <div style="font-family:'Courier New',monospace;font-size:13px;line-height:1.8;background:#fff;padding:12px;border:2px solid;border-color:#808080 #fff #fff #808080;min-height:160px;">
+            <div style="color:#666;font-size:11px;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:6px;">
+                最后修改：2023-09-14 23:47
+            </div>
+            今天去了那个地方。<br>
+            墙上的数字是 <span style="color:#000080;font-weight:bold;">2047</span>。<br>
+            我不知道这意味着什么。<br>
+            但我知道，我不是第一个找到这里的人。<br>
+            也不是最后一个。<br>
+            <br>
+            <span style="color:#666;font-size:11px;">—— 以下内容已加密 ——</span><br>
+            <span style="color:#999;font-size:14px;">bGluX3poYW8gZWNoaG8gMjA0Nw==</span><br>
+            <br>
+            <span style="color:#999;font-size:11px;">—— 加密内容结束 ——</span>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="btn" onclick="alert('✅ 文件已保存。')">💾 保存</span>
+            <span class="btn" onclick="openWindow('recycle')">🗑️ 删除</span>
+            <span class="btn" onclick="alert('🔍 提示：选中加密内容，复制后用 Base64 解码。')">❓ 帮助</span>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#666;">
+            💡 提示：选中 <span style="color:#999;font-weight:bold;">bGluX3poYW8gZWNoaG8gMjA0Nw==</span> 按 Ctrl+C 复制
+        </div>
+    </div>
+</div>
+
+<!-- ===== 窗口：记事本（笔记2.txt） ===== -->
+<div class="window" id="win_notepad2">
+    <div class="win-title"><span>📝 笔记2.txt - 记事本</span><span class="close" onclick="closeWindow('notepad2')">✕</span></div>
+    <div class="win-body">
+        <div style="font-family:'Courier New',monospace;font-size:13px;line-height:1.8;background:#fff;padding:12px;border:2px solid;border-color:#808080 #fff #fff #808080;min-height:120px;">
+            <div style="color:#666;font-size:11px;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:6px;">
+                最后修改：2023-09-12 14:30
+            </div>
+            墙上的数字到底是什么意思？<br>
+            我试了很多次，都没有头绪。<br>
+            <br>
+            直到我看到这张纸条：<br>
+            <span style="color:#000080;font-weight:bold;">"往前移三步"</span><br>
+            <br>
+            <span style="color:#999;">—— 以下是加密内容 ——</span><br>
+            <span style="color:#999;font-size:14px;">C A H D H R C E A C H K H D</span><br>
+            <br>
+            <span style="color:#999;font-size:11px;">—— 加密内容结束 ——</span>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="btn" onclick="alert('✅ 文件已保存。')">💾 保存</span>
+            <span class="btn" onclick="alert('🔍 提示：凯撒密码，偏移量+3。')">❓ 帮助</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 窗口：记事本（笔记3.txt） ===== -->
+<div class="window" id="win_notepad3">
+    <div class="win-title"><span>📝 笔记3.txt - 记事本</span><span class="close" onclick="closeWindow('notepad3')">✕</span></div>
+    <div class="win-body">
+        <div style="font-family:'Courier New',monospace;font-size:13px;line-height:1.8;background:#fff;padding:12px;border:2px solid;border-color:#808080 #fff #fff #808080;min-height:120px;">
+            <div style="color:#666;font-size:11px;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:6px;">
+                最后修改：2023-09-10 09:15
+            </div>
+            我找到了一个奇怪的代码。<br>
+            不知道是什么，先记下来。<br>
+            <br>
+            <span style="color:#999;">45 43 48 4F</span><br>
+            <br>
+            这看起来像是一串十六进制。<br>
+            也许能转换成文字？
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="btn" onclick="alert('✅ 文件已保存。')">💾 保存</span>
+            <span class="btn" onclick="alert('🔍 提示：十六进制转 ASCII。')">❓ 帮助</span>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 窗口：便签 ===== -->
+<div class="window" id="win_sticky">
+    <div class="win-title"><span>📌 便签</span><span class="close" onclick="closeWindow('sticky')">✕</span></div>
+    <div class="win-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <a href="16_sticky1.html" style="display:block;background:#ffff99;padding:16px;border-radius:4px;text-decoration:none;color:#333;border:1px solid #e8e8a0;text-align:center;font-size:13px;box-shadow:2px 2px 8px rgba(0,0,0,0.05);">
+                📌 便签①<br>
+                <span style="font-size:11px;color:#888;">"他们在听"</span>
+            </a>
+            <a href="17_sticky2.html" style="display:block;background:#ffffcc;padding:16px;border-radius:4px;text-decoration:none;color:#333;border:1px solid #e8e8a0;text-align:center;font-size:13px;box-shadow:2px 2px 8px rgba(0,0,0,0.05);">
+                📌 便签②<br>
+                <span style="font-size:11px;color:#888;">"2047是钥匙"</span>
+            </a>
+            <a href="18_sticky3.html" style="display:block;background:#ffffaa;padding:16px;border-radius:4px;text-decoration:none;color:#333;border:1px solid #e8e8a0;text-align:center;font-size:13px;box-shadow:2px 2px 8px rgba(0,0,0,0.05);">
+                📌 便签③<br>
+                <span style="font-size:11px;color:#888;">"林昭"</span>
+            </a>
+            <a href="19_sticky4.html" style="display:block;background:#ffffbb;padding:16px;border-radius:4px;text-decoration:none;color:#333;border:1px solid #e8e8a0;text-align:center;font-size:13px;box-shadow:2px 2px 8px rgba(0,0,0,0.05);">
+                📌 便签④<br>
+                <span style="font-size:11px;color:#888;">"E: 驱动器"</span>
+            </a>
+            <a href="20_sticky5.html" style="display:block;background:#ffffdd;padding:16px;border-radius:4px;text-decoration:none;color:#333;border:1px solid #e8e8a0;text-align:center;font-size:13px;box-shadow:2px 2px 8px rgba(0,0,0,0.05);">
+                📌 便签⑤<br>
+                <span style="font-size:11px;color:#888;">"别相信任何人"</span>
+            </a>
+            <a href="21_sticky6.html" style="display:block;background:#ffffee;padding:16px;border-radius:4px;text-decoration:none;color:#333;border:1px solid #e8e8a0;text-align:center;font-size:13px;box-shadow:2px 2px 8px rgba(0,0,0,0.05);">
+                📌 便签⑥<br>
+                <span style="font-size:11px;color:#888;">"密码是她的生日"</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ===== 窗口：命令提示符 ===== -->
+<div class="window" id="win_cmd">
+    <div class="win-title"><span>⬛ 命令提示符</span><span class="close" onclick="closeWindow('cmd')">✕</span></div>
+    <div class="win-body" style="background:#000;padding:12px;font-family:'Courier New',monospace;font-size:13px;color:#00ff00;">
+        <div>Microsoft Windows [版本 10.0.19045]</div>
+        <div>© Microsoft Corporation。保留所有权利。</div>
+        <div style="margin:8px 0;">C:\Users\linzhao&gt;<span id="cmdInput" contenteditable="true" style="outline:none;display:inline-block;min-width:200px;background:#000;color:#00ff00;caret-color:#00ff00;" onkeydown="cmdKey(event)">type readme.txt</span></div>
+        <div id="cmdOutput" style="color:#aaa;"></div>
+        <div style="color:#666;font-size:11px;margin-top:8px;">
+            💡 输入 <span style="color:#00ff00;">help</span> 查看可用命令
+        </div>
+    </div>
+</div>
+
+<!-- 任务栏 -->
+<div class="taskbar">
+    <div class="start"><span class="winlogo">🪟</span> 开始</div>
+    <div style="margin-left:12px;font-size:12px;color:#333;display:flex;gap:12px;align-items:center;">
+        <span style="background:#d0d0d0;padding:2px 12px;border:1px solid #a0a0a0;">📝 日记.txt</span>
+    </div>
+    <div class="time" id="taskbarTime">14:23</div>
+</div>
+
+<script>
+    function openWindow(id) {
+        document.getElementById('overlay').classList.add('active');
+        const win = document.getElementById('win_' + id);
+        if (win) {
+            win.classList.add('active');
+            win.style.display = 'block';
+        }
+        if (id === 'cmd') {
+            setTimeout(() => {
+                const el = document.getElementById('cmdInput');
+                if (el) el.focus();
+                // 把光标移到末尾
+                const range = document.createRange();
+                const sel = window.getSelection();
+                range.selectNodeContents(el);
+                range.collapse(false);
+                sel.removeAllRanges();
+                sel.addRange(range);
+            }, 200);
+        }
+    }
+
+    function closeWindow(id) {
+        document.getElementById('overlay').classList.remove('active');
+        const win = document.getElementById('win_' + id);
+        if (win) {
+            win.classList.remove('active');
+            win.style.display = 'none';
+        }
+    }
+
+    let fileRestored = false;
+
+    function restoreFile() {
+        if (fileRestored) {
+            alert('⚠️ 该文件已还原。');
+            return;
+        }
+        fileRestored = true;
+        document.getElementById('restoreMsg').style.display = 'block';
+
+        // 在桌面上创建 readme.txt 图标
+        const desktop = document.getElementById('desktop');
+        const newIcon = document.createElement('a');
+        newIcon.href = '#';
+        newIcon.className = 'icon';
+        newIcon.onclick = function(e) {
+            e.preventDefault();
+            openWindow('readme');
+        };
+        newIcon.innerHTML = '<span class="ico">📄</span><span class="label">readme.txt</span>';
+        // 插入到回收站图标后面
+        const icons = desktop.querySelectorAll('.icon');
+        if (icons.length >= 2) {
+            icons[1].after(newIcon);
+        } else {
+            desktop.appendChild(newIcon);
+        }
+
+        // 移除回收站的角标
+        const badge = document.querySelector('.recycle-icon .badge');
+        if (badge) badge.remove();
+
+        // 改变回收站提示
+        const hint = document.querySelector('.recycle-hint');
+        if (hint) hint.textContent = '◆ 回收站已清空 ◆';
+
+        // 创建 readme 窗口
+        createReadmeWindow();
+
+        setTimeout(() => {
+            document.getElementById('restoreMsg').textContent = '✅ 文件已还原到桌面！点击桌面上的 readme.txt 查看。';
+        }, 500);
+    }
+
+    function createReadmeWindow() {
+        // 检查是否已存在
+        if (document.getElementById('win_readme')) return;
+
+        const container = document.body;
+
+        const overlay = document.getElementById('overlay');
+
+        const win = document.createElement('div');
+        win.className = 'window';
+        win.id = 'win_readme';
+        win.innerHTML = `
+            <div class="win-title"><span>📄 readme.txt - 记事本</span><span class="close" onclick="closeWindow('readme')">✕</span></div>
+            <div class="win-body">
+                <div style="font-family:'Courier New',monospace;font-size:13px;line-height:1.8;background:#fff;padding:12px;border:2px solid;border-color:#808080 #fff #fff #808080;min-height:140px;">
+                    <div style="color:#666;font-size:11px;margin-bottom:8px;border-bottom:1px solid #eee;padding-bottom:6px;">
+                        创建于：2023-09-14 23:50
+                    </div>
+                    你好，<br>
+                    <br>
+                    如果你在看这个文件——说明你已经找到了这台电脑。<br>
+                    我已经不在了。但有些事情，我需要告诉后来的人。<br>
+                    <br>
+                    <span style="color:#000080;font-weight:bold;">去我的文档。打开日记.txt。</span><br>
+                    <br>
+                    你会找到答案。<br>
+                    <br>
+                    —— 林昭 · 最后一封便签
+                </div>
+                <div style="margin-top:10px;display:flex;gap:8px;">
+                    <span class="btn" onclick="alert('📖 已读。')">✔ 已读</span>
+                    <span class="btn" onclick="closeWindow('readme')">✕ 关闭</span>
+                </div>
+            </div>
+        `;
+        container.appendChild(win);
+    }
+
+    function cmdKey(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const el = document.getElementById('cmdInput');
+            const cmd = el.textContent.trim().toLowerCase();
+            const output = document.getElementById('cmdOutput');
+
+            if (cmd === 'help') {
+                output.innerHTML = `
+                    <div style="color:#00ff00;margin-top:4px;">
+                        可用命令:<br>
+                        dir  - 显示目录内容<br>
+                        type [文件] - 显示文件内容<br>
+                        cls  - 清屏<br>
+                        exit - 退出<br>
+                        echo [信息] - 显示信息<br>
+                        试试: <span style="color:#ffff00;">type readme.txt</span>
+                    </div>
+                `;
+            } else if (cmd === 'dir') {
+                output.innerHTML = `
+                    <div style="color:#00ff00;margin-top:4px;">
+                        驱动器 C: 中的卷是 系统卷<br>
+                        卷序列号: ECHO-2047<br>
+                        <br>
+                        C:\Users\linzhao 的目录<br>
+                        <br>
+                        2023-09-01  14:23    &lt;DIR&gt;  Desktop<br>
+                        2023-09-03  09:12    &lt;DIR&gt;  Documents<br>
+                        2023-09-10  11:08    &lt;DIR&gt;  Downloads<br>
+                        2023-09-14  23:47                2,048  diary.txt<br>
+                        2023-09-12  14:30                1,024  notes2.txt<br>
+                        2023-09-10  09:15                  512  notes3.txt<br>
+                        <br>
+                        <span style="color:#ffff00;">E: 驱动器已加密</span>
+                    </div>
+                `;
+            } else if (cmd === 'type readme.txt') {
+                output.innerHTML = `
+                    <div style="color:#00ff00;margin-top:4px;">
+                        <span style="color:#aaa;">你好，</span><br>
+                        <span style="color:#aaa;">如果你在看这个文件——你已经找到了这台电脑。</span><br>
+                        <span style="color:#aaa;">去我的文档。打开日记.txt。</span><br>
+                        <span style="color:#aaa;">—— 林昭</span>
+                    </div>
+                `;
+            } else if (cmd.startsWith('echo ')) {
+                const msg = cmd.substring(5);
+                output.innerHTML = `<div style="color:#00ff00;margin-top:4px;">${msg}</div>`;
+            } else if (cmd === 'cls') {
+                output.innerHTML = '';
+            } else if (cmd === 'exit') {
+                output.innerHTML = `<div style="color:#00ff00;margin-top:4px;">正在退出...</div>`;
+                setTimeout(() => closeWindow('cmd'), 800);
+            } else if (cmd === '') {
+                // 空命令，什么都不做
+            } else {
+                output.innerHTML = `<div style="color:#ff4444;margin-top:4px;">'${cmd}' 不是内部或外部命令，也不是可运行的程序或批处理文件。</div>`;
+            }
+
+            // 清空输入框
+            el.textContent = '';
+            // 重新聚焦
+            setTimeout(() => el.focus(), 50);
+        }
+    }
+
+    // 更新任务栏时间
+    function updateTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        document.getElementById('taskbarTime').textContent = h + ':' + m;
+    }
+    updateTime();
+    setInterval(updateTime, 10000);
+
+    // 点击遮罩关闭所有窗口
+    document.getElementById('overlay').addEventListener('click', function() {
+        document.querySelectorAll('.window').forEach(w => {
+            w.classList.remove('active');
+            w.style.display = 'none';
+        });
+        this.classList.remove('active');
+    });
+
+    // 键盘快捷键：ESC 关闭所有窗口
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.window').forEach(w => {
+                w.classList.remove('active');
+                w.style.display = 'none';
+            });
+            document.getElementById('overlay').classList.remove('active');
+        }
+    });
+
+    // 页面底部导航
+    document.addEventListener('DOMContentLoaded', function() {
+        // 添加底部导航
+        const navDiv = document.createElement('div');
+        navDiv.style.cssText = 'position:fixed;bottom:52px;left:50%;transform:translateX(-50%);z-index:1000;display:flex;gap:16px;font-size:12px;font-family:Courier New,monospace;';
+        navDiv.innerHTML = `
+            <a href="00_login.html" style="color:rgba(255,255,255,0.15);text-decoration:none;">← 登录</a>
+            <span style="color:rgba(255,255,255,0.08);">|</span>
+            <a href="02_welcome.html" style="color:rgba(255,255,255,0.15);text-decoration:none;">下一个 →</a>
+        `;
+        document.body.appendChild(navDiv);
+    });
+</script>
+
+</body>
+</html>

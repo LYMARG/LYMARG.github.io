@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解密文件③ · 音频转录</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', 'Microsoft YaHei', monospace;
+            padding: 20px;
+        }
+        .window {
+            background: #1a1a1a;
+            border: 2px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 35px 30px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+        }
+        .window .header {
+            color: #00ff88;
+            font-size: 13px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .window .header .dim { color: #2a5a3a; }
+        .window .content {
+            color: #88aa88;
+            font-size: 14px;
+            line-height: 2.2;
+            font-family: 'Courier New', monospace;
+        }
+        .window .content .hl { color: #ffd700; }
+        .window .content .red { color: #ff4444; }
+        .window .content .dim { color: #2a4a3a; }
+        .window .content .warn { color: #ff8844; }
+        .window .divider { border: none; border-top: 1px solid #1a2a1a; margin: 14px 0; }
+        .window .footer {
+            margin-top: 16px;
+            color: #2a4a3a;
+            font-size: 10px;
+            border-top: 1px solid #1a2a1a;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .window .footer a {
+            color: #2a5a3a;
+            text-decoration: none;
+        }
+        .window .footer a:hover { color: #4a8a5a; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.02);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.04);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(255,255,255,0.12); }
+        .btn {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid #1a2a1a;
+            color: #3a7a5a;
+            padding: 4px 16px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .btn:hover { border-color: #4a8a5a; color: #5aaa7a; background: #0a1a0a; }
+        .transcript {
+            background: #0a0a0a;
+            border: 1px solid #1a2a1a;
+            border-radius: 4px;
+            padding: 12px 16px;
+            margin: 8px 0;
+            color: #88aa88;
+            font-style: italic;
+        }
+        .transcript .hl { color: #ffd700; font-style: normal; }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="header">
+        <span>📄 文件3.txt</span>
+        <span class="dim">[ 解密完成 ]</span>
+    </div>
+
+    <div class="content">
+        <span class="dim">========================================</span><br>
+        <span class="hl">🎵 音频转录 · 2023-09-14</span><br>
+        <span class="dim">========================================</span><br>
+        <br>
+        以下是林昭留下的录音的 <span class="warn">文字转录</span>：<br>
+        <br>
+        <div class="transcript">
+            "如果你听到了这段录音……<br>
+            <br>
+            那就说明我已经不在了。<br>
+            <br>
+            我叫 <span class="hl">林昭</span>。我花了三周时间调查 <span class="hl">"回声" 计划</span>。<br>
+            我找到了陈远、周明、方琳——他们都失踪了。<br>
+            我也找到了他们的笔记。<br>
+            <br>
+            他们都在研究同一种东西——<br>
+            <span class="hl">一种可以被保存的声音。</span><br>
+            <br>
+            那不是普通的声波。<br>
+            那是 <span class="warn">某种更古老的东西</span>。<br>
+            <br>
+            我还没有完全理解它。<br>
+            但我已经看到了它的影子。<br>
+            <br>
+            如果你在听这段录音——<br>
+            请记住：<span class="hl">声音不会消失。只会变成回声。</span><br>
+            <br>
+            —— 再见。"
+        </div>
+        <br>
+        <span class="dim">💡 录音末尾有一段摩斯电码</span><br>
+        <span class="dim">去播放录音，听最后 10 秒。</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="41_file1.html" class="btn">← 文件1</a>
+        <a href="42_file2.html" class="btn">← 文件2</a>
+        <a href="44_audio.html" class="btn">🎵 播放音频 →</a>
+    </div>
+
+    <div class="footer">
+        <span>E:\文件3.txt</span>
+        <span><a href="40_e_drive.html">← 返回 E: 驱动器</a></span>
+    </div>
+</div>
+
+<div class="page-id">[ 43 / 45 ]</div>
+<div class="nav-links">
+    <a href="42_file2.html">← 上一页</a>
+    <a href="44_audio.html">下一页 →</a>
+</div>
+
+</body>
+</html>

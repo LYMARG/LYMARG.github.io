@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密文件夹</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .toolbar {
+            background: #d0d0d0;
+            padding: 4px 10px;
+            border-bottom: 1px solid #a0a0a0;
+            font-size: 12px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .toolbar .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 2px 14px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .toolbar .btn:hover { background: #d5d5d5; }
+        .address-bar {
+            background: #fff;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            padding: 4px 10px;
+            font-size: 12px;
+            color: #333;
+            margin: 6px 10px;
+            font-family: 'Courier New', monospace;
+        }
+        .content {
+            padding: 16px 20px;
+            text-align: center;
+            background: #f0f0f0;
+            min-height: 220px;
+        }
+        .content .icon-big { font-size: 56px; display: block; margin-bottom: 8px; }
+        .content .name { font-size: 18px; font-weight: 600; color: #cc5500; }
+        .content .desc { font-size: 14px; color: #666; margin-top: 8px; line-height: 1.8; }
+        .content .desc .hl { color: #000080; font-weight: bold; }
+        .content .password-area {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .content .password-area input {
+            padding: 8px 14px;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            font-size: 14px;
+            width: 160px;
+            font-family: 'Courier New', monospace;
+            outline: none;
+            background: #fff;
+        }
+        .content .password-area input:focus {
+            border-color: #000080;
+        }
+        .content .password-area button {
+            padding: 8px 24px;
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .content .password-area button:hover { background: #d5d5d5; }
+        .content .error {
+            color: #cc3300;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+        .content .hint {
+            margin-top: 14px;
+            padding: 10px 14px;
+            background: #fff8e6;
+            border: 1px solid #ffd700;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+            text-align: left;
+        }
+        .content .hint .hl { color: #000080; font-weight: bold; }
+        .status-bar {
+            background: #d0d0d0;
+            border-top: 1px solid #a0a0a0;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.15);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>🔒 加密文件夹</span>
+        <span class="close" onclick="window.location.href='08_documents.html'">✕</span>
+    </div>
+    <div class="toolbar">
+        <span class="btn" onclick="window.location.href='08_documents.html'">← 后退</span>
+        <span class="btn">→ 前进</span>
+        <span class="btn" style="margin-left:auto;">📂 新建文件夹</span>
+    </div>
+    <div class="address-bar">📌 此电脑 &gt; 本地磁盘 (C:) &gt; Users &gt; 林昭 &gt; Documents &gt; 加密文件夹</div>
+    <div class="content">
+        <span class="icon-big">🔒</span>
+        <div class="name">此文件夹已加密</div>
+        <div class="desc">
+            输入密码以查看内容
+        </div>
+
+        <div class="password-area">
+            <input type="password" id="folderPass" placeholder="输入密码" onkeydown="if(event.key==='Enter') checkFolderPass()">
+            <button onclick="checkFolderPass()">解锁</button>
+        </div>
+        <div class="error" id="folderError">❌ 密码错误</div>
+
+        <div class="hint">
+            💡 提示：密码是一个 <span class="hl">4位数字</span>。<br>
+            林昭在日记里提到过这个数字。<br>
+            墙上的数字 —— <span class="hl">2047</span>
+        </div>
+    </div>
+    <div class="status-bar">
+        <span>🔒 加密文件夹</span>
+        <span>需要密码</span>
+    </div>
+</div>
+
+<div class="page-id">[ 15 / 45 ]</div>
+<div class="nav-links">
+    <a href="14_pdf.html">← 上一页</a>
+    <a href="16_sticky1.html">下一页 →</a>
+</div>
+
+<script>
+    function checkFolderPass() {
+        const input = document.getElementById('folderPass').value;
+        const error = document.getElementById('folderError');
+        if (input === '2047') {
+            error.style.display = 'none';
+            alert('✅ 密码正确！\n\n📂 文件夹内容:\n\n📄 日记_备份.txt\n📄 照片_描述.txt\n📁 音频_存档\n\n（这些文件似乎已经被移走了...）\n\n💡 继续你的调查。');
+        } else {
+            error.style.display = 'block';
+            document.getElementById('folderPass').value = '';
+        }
+    }
+</script>
+
+</body>
+</html>

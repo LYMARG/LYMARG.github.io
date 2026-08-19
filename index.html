@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 登录</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #1a7a9a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a6a8a 0%, #0a4a6a 100%);
+        }
+        .login-container {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 40px 48px 36px 48px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .login-header .logo {
+            font-size: 44px;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 4px;
+        }
+        .login-header .title {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+        .login-header .sub {
+            color: rgba(255,255,255,0.3);
+            font-size: 11px;
+            margin-top: 4px;
+            letter-spacing: 5px;
+        }
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .avatar {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4a8a9a, #2a6a7a);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .avatar-section .name {
+            color: #fff;
+            font-size: 15px;
+            margin-top: 10px;
+            font-weight: 400;
+        }
+        .avatar-section .hint {
+            color: rgba(255,255,255,0.2);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+        .password-area {
+            margin-bottom: 20px;
+        }
+        .password-area input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        .password-area input::placeholder {
+            color: rgba(255,255,255,0.25);
+        }
+        .password-area input:focus {
+            border-color: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.1);
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            letter-spacing: 2px;
+        }
+        .login-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
+        }
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 12px;
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.15);
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.2);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: rgba(255,255,255,0.6);
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="login-header">
+        <div class="logo">🪟</div>
+        <div class="title">Windows 10</div>
+        <div class="sub">离线日记 · 特别版</div>
+    </div>
+
+    <div class="avatar-section">
+        <div class="avatar">👤</div>
+        <div class="name">林昭</div>
+        <div class="hint">此设备属于林昭 · 最后一次登录: 2023-09-14</div>
+    </div>
+
+    <div class="password-area">
+        <input type="password" id="loginPass" placeholder="请输入密码登录" onkeydown="if(event.key==='Enter') doLogin()">
+    </div>
+
+    <button class="login-btn" onclick="doLogin()">▶ 登录</button>
+
+    <div class="error-msg" id="errorMsg">❌ 密码错误，请重试</div>
+
+    <div class="footer">© 2023 · 此设备已加密</div>
+</div>
+
+<div class="page-id">[ 00 / 45 ]</div>
+<div class="nav-links">
+    <a href="01_desktop.html">→ 跳过登录</a>
+</div>
+
+<script>
+    let attempts = 3;
+
+    function doLogin() {
+        const input = document.getElementById('loginPass').value;
+        const error = document.getElementById('errorMsg');
+
+        // 密码是空的，直接点击"登录"按钮就能进
+        // 但玩家不知道，会觉得需要输密码
+        // 实际上这是个陷阱——林昭的电脑根本没有密码
+        if (input === '' || input === ' ' || input === 'password') {
+            error.style.display = 'none';
+            window.location.href = '01_desktop.html';
+        } else {
+            attempts--;
+            error.style.display = 'block';
+            if (attempts <= 0) {
+                error.textContent = '⛔ 账户已锁定。尝试次数过多。';
+                document.getElementById('loginPass').disabled = true;
+            }
+            document.getElementById('loginPass').value = '';
+            document.getElementById('loginPass').focus();
+        }
+    }
+
+    // 点击登录按钮时自动聚焦输入框
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('loginPass').focus();
+    });
+</script>
+
+</body>
+</html>

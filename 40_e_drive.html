@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E: 驱动器 · 加密分区</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #1a1a1a;
+            border: 2px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 40px 35px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+        }
+        .window .icon { font-size: 56px; display: block; margin-bottom: 8px; }
+        .window .title { color: #ffd700; font-size: 22px; font-weight: 600; letter-spacing: 2px; }
+        .window .sub { color: #666; font-size: 13px; margin-top: 4px; }
+        .window .divider { border: none; border-top: 1px solid #2a2a2a; margin: 20px 0; }
+        .window .info {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.8;
+            text-align: left;
+            padding: 0 8px;
+        }
+        .window .info .hl { color: #ffd700; }
+        .window .info .warn { color: #cc5500; }
+        .window .password-area {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .window .password-area input {
+            background: #0a0a0a;
+            border: 2px solid;
+            border-color: #333 #1a1a1a #1a1a1a #333;
+            padding: 10px 16px;
+            font-size: 16px;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            width: 200px;
+            outline: none;
+            text-align: center;
+            letter-spacing: 4px;
+        }
+        .window .password-area input:focus { border-color: #ffd700; }
+        .window .password-area button {
+            background: #2a2a2a;
+            border: 2px solid #444;
+            color: #fff;
+            padding: 10px 24px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .window .password-area button:hover { background: #3a3a3a; border-color: #ffd700; color: #ffd700; }
+        .window .error {
+            color: #ff3333;
+            font-size: 13px;
+            margin-top: 10px;
+            display: none;
+        }
+        .window .hint {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #555;
+            text-align: left;
+        }
+        .window .hint .hl { color: #ffd700; }
+        .window .footer {
+            margin-top: 16px;
+            color: #333;
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+        .back-link {
+            color: #555;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .back-link:hover { color: #888; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.02);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.04);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(255,255,255,0.12); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <span class="icon">🔒</span>
+    <div class="title">E: 驱动器</div>
+    <div class="sub">已加密 · 需要密码</div>
+    <hr class="divider">
+
+    <div class="info">
+        📌 位置: 此电脑 \ E: \ <br>
+        📁 大小: 4.0 GB · 已用: 2.1 GB<br>
+        🔐 加密方式: <span class="hl">ECHO-2047</span>
+    </div>
+
+    <div class="password-area">
+        <input type="password" id="eDrivePass" placeholder="输入密码" onkeydown="if(event.key==='Enter') checkEDrive()">
+        <button onclick="checkEDrive()">解锁</button>
+    </div>
+    <div class="error" id="eDriveError">❌ 密码错误</div>
+
+    <div class="hint">
+        💡 提示：密码是 <span class="hl">4位数字</span>。<br>
+        你在 <span class="hl">日记</span> 和 <span class="hl">便签</span> 里见过它。
+    </div>
+
+    <div class="footer">
+        <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+    </div>
+</div>
+
+<script>
+    function checkEDrive() {
+        const input = document.getElementById('eDrivePass').value;
+        const error = document.getElementById('eDriveError');
+
+        if (input === '2047') {
+            error.style.display = 'none';
+            window.location.href = '41_file1.html';
+        } else {
+            error.style.display = 'block';
+            document.getElementById('eDrivePass').value = '';
+            document.getElementById('eDrivePass').focus();
+        }
+    }
+</script>
+
+<div class="page-id">[ 40 / 45 ]</div>
+<div class="nav-links">
+    <a href="39_shutdown.html">← 上一页</a>
+    <a href="41_file1.html">下一页 →</a>
+</div>
+
+</body>
+</html>

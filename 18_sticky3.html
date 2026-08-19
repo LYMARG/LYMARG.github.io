@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>便签③</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .sticky {
+            background: #ffffaa;
+            padding: 40px 35px;
+            max-width: 420px;
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 4px 4px 20px rgba(0,0,0,0.2);
+            transform: rotate(-1deg);
+            border: 1px solid #e8e8a0;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+        }
+        .sticky .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 16px;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 12px;
+        }
+        .sticky .content {
+            font-size: 16px;
+            line-height: 2;
+            color: #333;
+            min-height: 120px;
+        }
+        .sticky .content .hl { color: #cc3300; font-weight: bold; font-size: 20px; }
+        .sticky .content .warn { color: #cc5500; font-weight: bold; }
+        .sticky .footer {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+            border-top: 1px dashed #ddd;
+            padding-top: 10px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .back-link:hover { color: #000; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="sticky">
+    <div class="title">📌 便签 #3</div>
+    <div class="content">
+        <span class="hl">我叫林昭。</span><br>
+        <br>
+        师范大学 · 2020级 · 声学专业。<br>
+        <br>
+        我从 2023年9月1日开始调查这件事。<br>
+        到今天刚好两周。<br>
+        <br>
+        我现在觉得，<span class="warn">我已经走得太远了。</span><br>
+        但我不可能停下来。<br>
+        <br>
+        如果你在看这个——<br>
+        请记住我的名字。<br>
+        如果有人问起我，<br>
+        告诉他们我找到了什么。
+    </div>
+    <div class="footer">—— 林昭 · 2023.09.14</div>
+    <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+</div>
+
+<div class="page-id">[ 18 / 45 ]</div>
+<div class="nav-links">
+    <a href="17_sticky2.html">← 上一页</a>
+    <a href="19_sticky4.html">下一页 →</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解密文件① · 失踪名单</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', 'Microsoft YaHei', monospace;
+            padding: 20px;
+        }
+        .window {
+            background: #1a1a1a;
+            border: 2px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 35px 30px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 4px 40px rgba(0,0,0,0.5);
+        }
+        .window .header {
+            color: #00ff88;
+            font-size: 13px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .window .header .dim { color: #2a5a3a; }
+        .window .content {
+            color: #88aa88;
+            font-size: 14px;
+            line-height: 2.2;
+            font-family: 'Courier New', monospace;
+        }
+        .window .content .hl { color: #ffd700; }
+        .window .content .red { color: #ff4444; }
+        .window .content .dim { color: #2a4a3a; }
+        .window .content .warn { color: #ff8844; }
+        .window .divider { border: none; border-top: 1px solid #1a2a1a; margin: 14px 0; }
+        .window .footer {
+            margin-top: 16px;
+            color: #2a4a3a;
+            font-size: 10px;
+            border-top: 1px solid #1a2a1a;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .window .footer a {
+            color: #2a5a3a;
+            text-decoration: none;
+        }
+        .window .footer a:hover { color: #4a8a5a; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.02);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.04);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(255,255,255,0.12); }
+        .btn {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid #1a2a1a;
+            color: #3a7a5a;
+            padding: 4px 16px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .btn:hover { border-color: #4a8a5a; color: #5aaa7a; background: #0a1a0a; }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="header">
+        <span>📄 文件1.txt</span>
+        <span class="dim">[ 解密完成 ]</span>
+    </div>
+
+    <div class="content">
+        <span class="dim">========================================</span><br>
+        <span class="hl">📋 回声计划 · 失踪人员名单</span><br>
+        <span class="dim">========================================</span><br>
+        <br>
+        <span class="warn">2009年</span> · <span class="hl">陈远</span><br>
+        职位: 声学研究中心 · 首席研究员<br>
+        状态: <span class="red">失踪</span><br>
+        备注: 火灾后失踪。未找到遗体。<br>
+        <br>
+        <span class="warn">2016年</span> · <span class="hl">周明</span><br>
+        职位: 声音留存项目 · 负责人<br>
+        状态: <span class="red">失踪</span><br>
+        备注: 项目取消后失踪。<br>
+        <br>
+        <span class="warn">2020年</span> · <span class="hl">方琳</span><br>
+        职位: 回声计划 · 研究员<br>
+        状态: <span class="red">失踪</span><br>
+        备注: 最后出现在北郊研究所。<br>
+        <br>
+        <span class="warn">2023年</span> · <span class="hl">林昭</span><br>
+        职位: 师范大学 · 声学专业 · 调查员<br>
+        状态: <span class="red">已失联</span><br>
+        备注: 2023年9月14日最后出现。<br>
+        <br>
+        <span class="dim">========================================</span><br>
+        <span class="dim">"他们都在寻找同一个声音。"</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a href="42_file2.html" class="btn">📄 文件2 →</a>
+        <a href="43_file3.html" class="btn">📄 文件3 →</a>
+        <a href="44_audio.html" class="btn">🎵 音频 →</a>
+    </div>
+
+    <div class="footer">
+        <span>E:\文件1.txt</span>
+        <span><a href="40_e_drive.html">← 返回 E: 驱动器</a></span>
+    </div>
+</div>
+
+<div class="page-id">[ 41 / 45 ]</div>
+<div class="nav-links">
+    <a href="40_e_drive.html">← 上一页</a>
+    <a href="42_file2.html">下一页 →</a>
+</div>
+
+</body>
+</html>

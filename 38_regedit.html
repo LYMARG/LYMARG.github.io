@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册表编辑器</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .menu-bar {
+            background: #d0d0d0;
+            padding: 2px 10px;
+            border-bottom: 1px solid #a0a0a0;
+            font-size: 12px;
+            display: flex;
+            gap: 16px;
+        }
+        .menu-bar span { cursor: default; }
+        .content { padding: 12px 16px; background: #f0f0f0; }
+        .content .reg-path {
+            background: #fff;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .content .reg-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+            font-size: 13px;
+            border-bottom: 1px solid #e8e8e8;
+            font-family: 'Courier New', monospace;
+        }
+        .content .reg-item .name { width: 180px; color: #000080; flex-shrink: 0; }
+        .content .reg-item .type { width: 80px; color: #666; flex-shrink: 0; }
+        .content .reg-item .value { color: #000; word-break: break-all; }
+        .content .reg-item .value .hl { color: #cc0000; font-weight: bold; }
+        .content .note {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #fff8e6;
+            border: 1px solid #ffd700;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+        }
+        .content .note .hl { color: #000080; font-weight: bold; }
+        .status-bar {
+            background: #d0d0d0;
+            border-top: 1px solid #a0a0a0;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 6px;
+            color: #2d7aff;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.06);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.12);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>🔧 注册表编辑器</span>
+        <span class="close" onclick="window.location.href='01_desktop.html'">✕</span>
+    </div>
+    <div class="menu-bar">
+        <span>文件(F)</span>
+        <span>编辑(E)</span>
+        <span>查看(V)</span>
+        <span>收藏夹(F)</span>
+        <span>帮助(H)</span>
+    </div>
+    <div class="content">
+        <div class="reg-path">📌 计算机\HKEY_CURRENT_USER\Software\EchoProject</div>
+
+        <div class="reg-item">
+            <span class="name">(默认)</span>
+            <span class="type">REG_SZ</span>
+            <span class="value">回声计划配置</span>
+        </div>
+        <div class="reg-item">
+            <span class="name">LastAccess</span>
+            <span class="type">REG_SZ</span>
+            <span class="value">2023-09-14 23:47:12</span>
+        </div>
+        <div class="reg-item">
+            <span class="name">EncryptionKey</span>
+            <span class="type">REG_SZ</span>
+            <span class="value"><span class="hl">2047-0914-ECHO</span></span>
+        </div>
+        <div class="reg-item">
+            <span class="name">Status</span>
+            <span class="type">REG_DWORD</span>
+            <span class="value">0x00000001 (1)</span>
+        </div>
+        <div class="reg-item">
+            <span class="name">Message</span>
+            <span class="type">REG_SZ</span>
+            <span class="value">"声音不会消失。只会变成回声。"</span>
+        </div>
+        <div class="reg-item" style="background:#fff8e6;">
+            <span class="name">HiddenNote</span>
+            <span class="type">REG_SZ</span>
+            <span class="value"><span style="color:#cc0000;font-weight:bold;">"E: 驱动器的密码是 2047。但小心——这不是全部真相。"</span></span>
+        </div>
+
+        <div class="note">
+            💡 注册表中发现了一条 <span class="hl">隐藏备注</span>。<br>
+            这似乎是林昭留下的最后一条系统记录。
+        </div>
+    </div>
+    <div class="status-bar">
+        <span>HKEY_CURRENT_USER\Software\EchoProject</span>
+        <span>6 个项目</span>
+    </div>
+</div>
+
+<div class="page-id">[ 38 / 45 ]</div>
+<div class="nav-links">
+    <a href="37_taskmgr.html">← 上一页</a>
+    <a href="39_shutdown.html">下一页 →</a>
+</div>
+
+</body>
+</html>

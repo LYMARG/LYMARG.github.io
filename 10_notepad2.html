@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笔记2.txt · 记事本</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 620px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .menu-bar {
+            background: #d0d0d0;
+            padding: 2px 10px;
+            border-bottom: 1px solid #a0a0a0;
+            font-size: 12px;
+            display: flex;
+            gap: 16px;
+        }
+        .menu-bar span { cursor: default; }
+        .content {
+            padding: 16px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            background: #fff;
+            min-height: 220px;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            margin: 6px 10px 10px 10px;
+        }
+        .content .date-line {
+            color: #888;
+            font-size: 11px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+        .content .hl { color: #000080; font-weight: bold; }
+        .content .cipher {
+            color: #cc5500;
+            font-size: 16px;
+            letter-spacing: 4px;
+            background: #f8f8f8;
+            padding: 6px 12px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+        .btn-row {
+            padding: 8px 10px 12px 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-row .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 4px 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-row .btn:hover { background: #d5d5d5; }
+        .btn-row .btn.primary {
+            background: #000080;
+            color: #fff;
+            border-color: #4040a0 #000050 #000050 #4040a0;
+        }
+        .btn-row .btn.primary:hover { background: #0000a0; }
+        .status-bar {
+            background: #d0d0d0;
+            border-top: 1px solid #a0a0a0;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.15);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>📝 笔记2.txt · 记事本</span>
+        <span class="close" onclick="window.location.href='08_documents.html'">✕</span>
+    </div>
+    <div class="menu-bar">
+        <span>文件(F)</span>
+        <span>编辑(E)</span>
+        <span>格式(O)</span>
+        <span>查看(V)</span>
+        <span>帮助(H)</span>
+    </div>
+    <div class="content">
+        <div class="date-line">📅 最后修改: 2023年9月12日 14:30</div>
+
+        墙上的数字到底是什么意思？<br>
+        我试了很多次，都没有头绪。<br>
+        <br>
+        直到我在那本旧笔记本里找到一张纸条：<br>
+        <span style="color:#666;">"往前移三步"</span><br>
+        <br>
+        我试了试。<br>
+        <br>
+        <span style="color:#888;font-size:11px;">—— 以下是加密内容 ——</span><br>
+        <span class="cipher">C A H D H R C E A C H K H D</span><br>
+        <span style="color:#888;font-size:11px;">—— 加密内容结束 ——</span><br>
+        <br>
+        <span style="color:#666;font-size:11px;">💡 提示: 凯撒密码 · 偏移量 +3（字母向前移3位）</span>
+    </div>
+    <div class="btn-row">
+        <span class="btn">💾 保存</span>
+        <span class="btn primary" onclick="window.location.href='11_notepad3.html'">📄 下一页 →</span>
+        <span class="btn" onclick="alert('🔍 凯撒密码解码: C A H D H R C E A C H K H D 解码后为 2047 IS THE KEY')">❓ 解码帮助</span>
+    </div>
+    <div class="status-bar">
+        <span>📄 笔记2.txt</span>
+        <span>UTF-8 · 1.0 KB</span>
+    </div>
+</div>
+
+<div class="page-id">[ 10 / 45 ]</div>
+<div class="nav-links">
+    <a href="09_notepad.html">← 上一页</a>
+    <a href="11_notepad3.html">下一页 →</a>
+</div>
+
+</body>
+</html>

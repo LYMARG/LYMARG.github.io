@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>命令提示符 · E: 驱动器</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+        }
+        .cmd {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 4px;
+            padding: 20px;
+            width: 100%;
+            max-width: 650px;
+            min-height: 350px;
+            box-shadow: 0 4px 40px rgba(0,255,0,0.04);
+        }
+        .cmd .line {
+            color: #00ff00;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 2px;
+        }
+        .cmd .line .dim { color: #006600; }
+        .cmd .line .hl { color: #ffff00; }
+        .cmd .line .cyan { color: #00cccc; }
+        .cmd .line .red { color: #ff3333; }
+        .cmd .output {
+            color: #00cc00;
+            font-size: 13px;
+            line-height: 1.8;
+            margin-top: 6px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .cmd .output .hl { color: #ffff00; }
+        .cmd .output .dim { color: #006600; }
+        .cmd .output .cyan { color: #00cccc; }
+        .cmd .footer {
+            color: #003300;
+            font-size: 10px;
+            margin-top: 16px;
+            border-top: 1px solid #001a00;
+            padding-top: 8px;
+            letter-spacing: 2px;
+        }
+        .back-link {
+            color: #006600;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .back-link:hover { color: #00aa00; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,255,0,0.02);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,255,0,0.05);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,255,0,0.15); }
+        .btn {
+            background: transparent;
+            border: 1px solid #003300;
+            color: #00ff00;
+            padding: 4px 16px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            transition: 0.3s;
+            margin-top: 6px;
+        }
+        .btn:hover { border-color: #00ff00; background: #001a00; }
+    </style>
+</head>
+<body>
+
+<div class="cmd">
+    <div class="line"><span class="dim">Microsoft Windows [版本 10.0.19045]</span></div>
+    <div class="line"><span class="dim">E:\&gt;</span><span class="hl">dir</span></div>
+    <div class="output">
+        驱动器 E: 中的卷是 回声档案
+        卷序列号: 2047-0914
+
+        E:\ 的目录
+
+        2023-09-10  14:23    &lt;DIR&gt;          .
+        2023-09-10  14:23    &lt;DIR&gt;          ..
+        2023-09-10  12:00             2,048  文件1.txt
+        2023-09-12  09:30             1,024  文件2.txt
+        2023-09-13  16:45             3,072  文件3.txt
+        2023-09-14  23:47         2,048,000  录音.wav
+        2023-09-08  11:20    &lt;DIR&gt;          备份
+                      4 个文件      2,054,144 字节
+                      3 个目录      18,432,000 可用字节
+
+        <span class="hl">E:\&gt;type 文件1.txt</span>
+    </div>
+
+    <div class="line" style="color:#00cc00;margin-top:4px;">
+        ========================================<br>
+        <span class="hl">回声计划 · 失踪人员名单</span><br>
+        ========================================<br>
+        <br>
+        陈远 · 2009年 · 北郊研究所 · 火灾后失踪<br>
+        周明 · 2016年 · 声音留存项目 · 失踪<br>
+        方琳 · 2020年 · 回声计划研究员 · 失踪<br>
+        林昭 · 2023年 · 调查中 · <span class="red">已失联</span><br>
+        <br>
+        <span class="dim">—— 他们都在寻找同一个声音 ——</span>
+    </div>
+
+    <div class="line" style="margin-top:8px;"><span class="dim">E:\&gt;</span></div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+        <button class="btn" onclick="window.location.href='41_file1.html'">📄 查看文件1</button>
+        <button class="btn" onclick="window.location.href='42_file2.html'">📄 查看文件2</button>
+        <button class="btn" onclick="window.location.href='43_file3.html'">📄 查看文件3</button>
+        <button class="btn" onclick="window.location.href='44_audio.html'">🎵 播放录音</button>
+    </div>
+
+    <div class="footer">
+        <span class="dim">[ E: 驱动器已解锁 ]</span>
+        <br>
+        <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+    </div>
+</div>
+
+<div class="page-id">[ 36 / 45 ]</div>
+<div class="nav-links">
+    <a href="35_cmd.html">← 上一页</a>
+    <a href="37_taskmgr.html">下一页 →</a>
+</div>
+
+</body>
+</html>

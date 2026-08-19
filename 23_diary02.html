@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日记② · 2023.09.03</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Georgia', 'Songti SC', 'SimSun', serif;
+            padding: 20px;
+        }
+        .page {
+            background: #2a241c;
+            padding: 40px 35px;
+            max-width: 620px;
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+            border: 1px solid #3d352b;
+        }
+        .page .header {
+            display: flex;
+            justify-content: space-between;
+            color: #6b5f4f;
+            font-size: 11px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #3d352b;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+            font-family: 'Courier New', monospace;
+        }
+        .page .title {
+            color: #b8a48a;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            margin-bottom: 6px;
+        }
+        .page .date {
+            color: #6b5f4f;
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+        .page p {
+            color: #b8a48a;
+            font-size: 15px;
+            line-height: 2.2;
+            text-indent: 2em;
+        }
+        .page p:not(:first-child) { margin-top: 10px; }
+        .page .hl { color: #d4b68a; }
+        .page .warn { color: #cc8855; }
+        .page .footer {
+            color: #3d352b;
+            font-size: 10px;
+            text-align: center;
+            margin-top: 24px;
+            letter-spacing: 4px;
+            border-top: 1px solid #3d352b;
+            padding-top: 14px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #6b5f4f;
+            text-decoration: none;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+        .back-link:hover { color: #b8a48a; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.03);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.06);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="header"><span>— 02 —</span><span>第 2 页</span></div>
+    <div class="title">回声 · 图书馆</div>
+    <div class="date">2023年9月3日 · 阴</div>
+
+    <p>我去图书馆查了旧报纸。</p>
+    <p>2009年11月，<span class="hl">北郊声学研究中心发生火灾</span>。一人失踪。失踪者正是陈远。</p>
+    <p>报道很短。只有两段。像是被刻意压下来的。</p>
+    <p>但我在另一份报纸的夹缝里，看到了一行小字：<span class="warn">"研究项目'回声'或与失踪案有关。"</span></p>
+    <p>我把这张报纸复印了。夹在笔记本里。</p>
+    <p style="font-size:13px;color:#6b5f4f;text-align:center;margin-top:12px;text-indent:0;">—— 我开始相信这不是意外 ——</p>
+
+    <div class="footer">⏤ ⏤ ⏤</div>
+    <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+</div>
+
+<div class="page-id">[ 23 / 45 ]</div>
+<div class="nav-links">
+    <a href="22_diary01.html">← 上一页</a>
+    <a href="24_diary03.html">下一页 →</a>
+</div>
+
+</body>
+</html>

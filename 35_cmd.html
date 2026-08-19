@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>命令提示符</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+        }
+        .cmd {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 4px;
+            padding: 20px;
+            width: 100%;
+            max-width: 650px;
+            min-height: 350px;
+            box-shadow: 0 4px 40px rgba(0,255,0,0.04);
+        }
+        .cmd .line {
+            color: #00ff00;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 2px;
+        }
+        .cmd .line .dim { color: #006600; }
+        .cmd .line .hl { color: #ffff00; }
+        .cmd .line .warn { color: #ff6600; }
+        .cmd .line .red { color: #ff3333; }
+        .cmd .input-line {
+            display: flex;
+            align-items: center;
+            margin-top: 4px;
+        }
+        .cmd .input-line .prompt {
+            color: #00ff00;
+            font-size: 14px;
+        }
+        .cmd .input-line input {
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 4px 8px;
+            outline: none;
+            width: 100%;
+            caret-color: #00ff00;
+        }
+        .cmd .input-line input:focus { outline: none; }
+        .cmd .output {
+            color: #00cc00;
+            font-size: 13px;
+            line-height: 1.8;
+            margin-top: 6px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .cmd .output .hl { color: #ffff00; }
+        .cmd .output .red { color: #ff3333; }
+        .cmd .output .dim { color: #006600; }
+        .cmd .footer {
+            color: #003300;
+            font-size: 10px;
+            margin-top: 16px;
+            border-top: 1px solid #001a00;
+            padding-top: 8px;
+            letter-spacing: 2px;
+        }
+        .back-link {
+            color: #006600;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .back-link:hover { color: #00aa00; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,255,0,0.02);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,255,0,0.05);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,255,0,0.15); }
+    </style>
+</head>
+<body>
+
+<div class="cmd">
+    <div class="line">Microsoft Windows [版本 10.0.19045]</div>
+    <div class="line">© Microsoft Corporation。保留所有权利。</div>
+    <div class="line"><span class="dim">C:\Users\linzhao&gt;</span><span class="hl">echo 欢迎</span></div>
+    <div class="line" style="color:#006600;">欢迎</div>
+
+    <div class="line" style="margin-top:8px;"><span class="dim">C:\Users\linzhao&gt;</span><span class="hl">type readme.txt</span></div>
+    <div class="output">你好，后来的读者。<br>我叫林昭。<br>去我的文档，打开日记.txt。<br>你会找到一个加密字符串。<br>用 Base64 解码。<br>解出来的东西就是 <span class="hl">打开 E: 驱动器的密码</span>。</div>
+
+    <div class="line" style="margin-top:8px;"><span class="dim">C:\Users\linzhao&gt;</span><span class="hl">cd E:</span></div>
+    <div class="output"><span class="red">访问被拒绝。驱动器 E: 已加密。</span><br>需要输入密码才能访问。</div>
+
+    <div class="input-line">
+        <span class="prompt">E: 驱动器密码 &gt; </span>
+        <input type="password" id="cmdPass" placeholder="" onkeydown="if(event.key==='Enter') checkCmdPass()">
+    </div>
+
+    <div id="cmdOutput" class="output" style="margin-top:4px;"></div>
+
+    <div class="footer">
+        <span class="dim">[ 输入密码后按 Enter ]</span>
+        <br>
+        <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+    </div>
+</div>
+
+<script>
+    function checkCmdPass() {
+        const input = document.getElementById('cmdPass').value;
+        const output = document.getElementById('cmdOutput');
+
+        if (input === 'lin_zhao_echo_2047') {
+            output.innerHTML = '<span style="color:#00ff00;">✅ 密码正确！</span><br><br>E: 驱动器已解锁。<br>可用文件:<br>  📄 文件1.txt<br>  📄 文件2.txt<br>  📄 文件3.txt<br>  🎵 录音.wav<br><br><span class="hl">输入 dir 查看完整列表</span>';
+            setTimeout(function() {
+                window.location.href = '40_e_drive.html';
+            }, 3000);
+        } else {
+            output.innerHTML = '<span class="red">❌ 密码错误。请重试。</span>';
+            document.getElementById('cmdPass').value = '';
+            document.getElementById('cmdPass').focus();
+        }
+    }
+</script>
+
+<div class="page-id">[ 35 / 45 ]</div>
+<div class="nav-links">
+    <a href="34_chat5.html">← 上一页</a>
+    <a href="36_cmd2.html">下一页 →</a>
+</div>
+
+</body>
+</html>

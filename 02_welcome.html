@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎使用 Windows</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #1a7a9a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a6a8a 0%, #0a4a6a 100%);
+        }
+        .welcome-container {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 50px 48px 40px 48px;
+            width: 100%;
+            max-width: 520px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+        .welcome-container .icon { font-size: 56px; margin-bottom: 12px; }
+        .welcome-container h1 { color: #fff; font-size: 26px; font-weight: 300; letter-spacing: 4px; }
+        .welcome-container .sub { color: rgba(255,255,255,0.3); font-size: 13px; margin-top: 6px; letter-spacing: 6px; }
+        .welcome-container .divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 24px 0; }
+        .welcome-container .info { color: rgba(255,255,255,0.5); font-size: 14px; line-height: 2; text-align: left; padding: 0 8px; }
+        .welcome-container .info .hl { color: #6aafaa; }
+        .welcome-container .info .warn { color: #ffaa66; }
+        .btn {
+            display: inline-block;
+            margin-top: 24px;
+            padding: 12px 44px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+            letter-spacing: 3px;
+            cursor: pointer;
+        }
+        .btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
+        .page-id {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.05);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.12);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(255,255,255,0.4); }
+        .checkbox-area {
+            text-align: left;
+            margin-top: 16px;
+            color: rgba(255,255,255,0.4);
+            font-size: 13px;
+        }
+        .checkbox-area input { margin-right: 10px; accent-color: #6aafaa; width: 16px; height: 16px; }
+        .checkbox-area label { cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="welcome-container">
+    <div class="icon">🪟</div>
+    <h1>欢迎使用 Windows</h1>
+    <div class="sub">离线日记 · 特别版</div>
+    <hr class="divider">
+
+    <div class="info">
+        <div>👤 <span class="hl">林昭</span> 是这台设备的唯一用户</div>
+        <div>📅 最后一次登录：<span class="hl">2023年9月14日</span></div>
+        <div>📁 文档数量：<span class="hl">12 个文件</span></div>
+        <div>🔒 加密分区：<span class="warn">E: 驱动器已加密</span></div>
+        <div style="margin-top:12px;font-size:12px;color:rgba(255,255,255,0.2);">
+            ⚠️ 此设备已被标记为"待调查"
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="checkbox-area">
+        <input type="checkbox" id="agreeCheck">
+        <label for="agreeCheck">我理解此设备可能包含敏感信息</label>
+    </div>
+
+    <a href="01_desktop.html" class="btn" id="enterBtn" style="opacity:0.5;pointer-events:none;">进入桌面 →</a>
+
+    <div style="margin-top:14px;color:rgba(255,255,255,0.08);font-size:10px;letter-spacing:2px;">
+        © 2023 · 此设备受保护
+    </div>
+</div>
+
+<div class="page-id">[ 02 / 45 ]</div>
+<div class="nav-links">
+    <a href="01_desktop.html">← 上一页</a>
+    <a href="03_explorer.html">下一页 →</a>
+</div>
+
+<script>
+    document.getElementById('agreeCheck').addEventListener('change', function() {
+        const btn = document.getElementById('enterBtn');
+        if (this.checked) {
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = 'auto';
+        } else {
+            btn.style.opacity = '0.5';
+            btn.style.pointerEvents = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>

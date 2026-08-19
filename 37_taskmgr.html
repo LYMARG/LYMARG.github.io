@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务管理器</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .menu-bar {
+            background: #d0d0d0;
+            padding: 2px 10px;
+            border-bottom: 1px solid #a0a0a0;
+            font-size: 12px;
+            display: flex;
+            gap: 16px;
+        }
+        .menu-bar span { cursor: default; }
+        .content { padding: 12px 16px; background: #f0f0f0; }
+        .content .tabs { display: flex; gap: 4px; margin-bottom: 10px; }
+        .content .tabs .tab {
+            padding: 4px 16px;
+            background: #d0d0d0;
+            border: 1px solid #a0a0a0;
+            font-size: 12px;
+            cursor: default;
+        }
+        .content .tabs .tab.active { background: #f0f0f0; border-bottom: 1px solid #f0f0f0; font-weight: bold; }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            background: #fff;
+        }
+        .content table th {
+            background: #d0d0d0;
+            padding: 4px 8px;
+            text-align: left;
+            font-weight: 500;
+            border: 1px solid #a0a0a0;
+        }
+        .content table td {
+            padding: 4px 8px;
+            border: 1px solid #d0d0d0;
+        }
+        .content table .warn { color: #cc5500; font-weight: bold; }
+        .content table .red { color: #cc0000; font-weight: bold; }
+        .content .note {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #fff8e6;
+            border: 1px solid #ffd700;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+        }
+        .content .note .hl { color: #000080; font-weight: bold; }
+        .status-bar {
+            background: #d0d0d0;
+            border-top: 1px solid #a0a0a0;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 6px;
+            color: #2d7aff;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.06);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.12);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.3); }
+        .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 3px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            display: inline-block;
+        }
+        .btn:hover { background: #d5d5d5; }
+        .btn.red { background: #cc0000; color: #fff; border-color: #ff3333 #990000 #990000 #ff3333; }
+        .btn.red:hover { background: #dd0000; }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>🔧 任务管理器</span>
+        <span class="close" onclick="window.location.href='01_desktop.html'">✕</span>
+    </div>
+    <div class="menu-bar">
+        <span>文件(F)</span>
+        <span>选项(O)</span>
+        <span>查看(V)</span>
+        <span>帮助(H)</span>
+    </div>
+    <div class="content">
+        <div class="tabs">
+            <span class="tab active">进程</span>
+            <span class="tab">性能</span>
+            <span class="tab">服务</span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>映像名称</th>
+                    <th>CPU</th>
+                    <th>内存</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>explorer.exe</td>
+                    <td>02%</td>
+                    <td>28MB</td>
+                    <td>运行中</td>
+                </tr>
+                <tr>
+                    <td>notepad.exe</td>
+                    <td>00%</td>
+                    <td>12MB</td>
+                    <td>运行中</td>
+                </tr>
+                <tr>
+                    <td>cmd.exe</td>
+                    <td>00%</td>
+                    <td>8MB</td>
+                    <td>运行中</td>
+                </tr>
+                <tr style="background:#fff8e6;">
+                    <td><span class="warn">echo_service.exe</span></td>
+                    <td><span class="red">15%</span></td>
+                    <td><span class="red">86MB</span></td>
+                    <td><span class="warn">⚠️ 可疑</span></td>
+                </tr>
+                <tr>
+                    <td>svchost.exe</td>
+                    <td>04%</td>
+                    <td>34MB</td>
+                    <td>运行中</td>
+                </tr>
+                <tr>
+                    <td>winlogon.exe</td>
+                    <td>01%</td>
+                    <td>16MB</td>
+                    <td>运行中</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+            <span class="btn" onclick="alert('⚠️ echo_service.exe 是可疑进程！无法结束。')">结束进程</span>
+            <span class="btn red" onclick="alert('⚠️ 系统保护。无法结束此进程。')">结束进程树</span>
+        </div>
+
+        <div class="note">
+            💡 <span class="hl">echo_service.exe</span> 是一个可疑进程。<br>
+            它占用了大量内存，且无法被结束。<br>
+            这可能与 <span class="hl">"回声" 计划</span> 有关。
+        </div>
+    </div>
+    <div class="status-bar">
+        <span>进程: 18</span>
+        <span>CPU: 22% · 内存: 3.2GB</span>
+    </div>
+</div>
+
+<div class="page-id">[ 37 / 45 ]</div>
+<div class="nav-links">
+    <a href="36_cmd2.html">← 上一页</a>
+    <a href="38_regedit.html">下一页 →</a>
+</div>
+
+</body>
+</html>

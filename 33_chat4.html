@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短信 · 未知号码</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #e8e8e8;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .phone {
+            width: 100%;
+            max-width: 400px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+        }
+        .phone-header {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 16px 20px 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .phone-header .time { font-weight: 600; font-size: 14px; }
+        .phone-header .icons { font-size: 14px; letter-spacing: 4px; }
+        .phone-body {
+            padding: 12px 16px 16px 16px;
+            min-height: 350px;
+        }
+        .sms {
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+        .sms .sender {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 2px;
+        }
+        .sms .bubble {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+        .sms.in .bubble {
+            background: #fff;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .sms.out .bubble {
+            background: #2d8cff;
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .sms .time {
+            font-size: 10px;
+            color: #999;
+            margin-top: 2px;
+        }
+        .sms.out .time { align-self: flex-end; padding-right: 4px; }
+        .sms.in .time { align-self: flex-start; padding-left: 4px; }
+        .sms .sender { padding-left: 4px; }
+        .sms.out .sender { align-self: flex-end; padding-right: 4px; }
+        .sms.in .sender { align-self: flex-start; }
+        .sms .hl { color: #cc3300; font-weight: bold; }
+        .sms .warn { color: #cc5500; font-weight: bold; }
+        .phone-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #e8e8e8;
+            background: #fafafa;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 6px;
+            color: #2d8cff;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.06);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.12);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.3); }
+        .sms .divider {
+            border: none;
+            border-top: 1px dashed #ddd;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone">
+    <div class="phone-header">
+        <span class="time">09:41</span>
+        <span class="icons">📶 🔋</span>
+    </div>
+    <div class="phone-body">
+
+        <div class="sms in">
+            <span class="sender">未知号码 · 09:12</span>
+            <div class="bubble">你在查北郊研究所的事情，对吗？</div>
+            <span class="time">09:12</span>
+        </div>
+
+        <div class="sms out">
+            <span class="sender">我 · 09:13</span>
+            <div class="bubble">你是谁？</div>
+            <span class="time">09:13</span>
+        </div>
+
+        <div class="sms in">
+            <span class="sender">未知号码 · 09:15</span>
+            <div class="bubble">我是谁不重要。<br>我只想告诉你一件事——<br><span class="hl">你正在被监视。</span></div>
+            <span class="time">09:15</span>
+        </div>
+
+        <div class="sms out">
+            <span class="sender">我 · 09:16</span>
+            <div class="bubble">你到底是谁？你怎么知道我在查这个？</div>
+            <span class="time">09:16</span>
+        </div>
+
+        <div class="sms in">
+            <span class="sender">未知号码 · 09:18</span>
+            <div class="bubble">你电脑上的那个加密分区。<br>我知道密码。<br>你的生日。<br><span class="warn">但不要用那个密码。</span></div>
+            <span class="time">09:18</span>
+        </div>
+
+        <div class="sms out">
+            <span class="sender">我 · 09:19</span>
+            <div class="bubble">什么意思？</div>
+            <span class="time">09:19</span>
+        </div>
+
+        <div class="sms in">
+            <span class="sender">未知号码 · 09:21</span>
+            <div class="bubble">那是陷阱。<br>如果你用你的生日打开 E: 驱动器，<br>你会触发一个程序。<br><span class="warn">他们会知道你在查他们。</span></div>
+            <span class="time">09:21</span>
+        </div>
+
+        <div class="sms out">
+            <span class="sender">我 · 09:22</span>
+            <div class="bubble">那正确的密码是什么？</div>
+            <span class="time">09:22</span>
+        </div>
+
+        <div class="sms in">
+            <span class="sender">未知号码 · 09:24</span>
+            <div class="bubble"><span class="hl">2047</span>。<br>那个数字是真正的钥匙。<br>相信我。<br>—— 我是唯一愿意帮你的人。</div>
+            <span class="time">09:24</span>
+        </div>
+
+        <div class="sms out">
+            <span class="sender">我 · 09:26</span>
+            <div class="bubble">我为什么应该相信你？</div>
+            <span class="time">09:26</span>
+        </div>
+
+        <div class="sms in">
+            <span class="sender">未知号码 · 09:28</span>
+            <div class="bubble">因为我也在找 "回声" 的真相。<br>—— 但我不希望你重蹈我的覆辙。</div>
+            <span class="time">09:28</span>
+        </div>
+
+        <div class="sms in" style="opacity:0.4;">
+            <span class="sender">未知号码 · 09:30</span>
+            <div class="bubble" style="background:#eee;">（号码已注销）</div>
+            <span class="time">09:30</span>
+        </div>
+
+    </div>
+    <div class="phone-footer">
+        📱 短信 · 已加密
+        <br>
+        <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+    </div>
+</div>
+
+<div class="page-id">[ 33 / 45 ]</div>
+<div class="nav-links">
+    <a href="32_chat3.html">← 上一页</a>
+    <a href="34_chat5.html">下一页 →</a>
+</div>
+
+</body>
+</html>

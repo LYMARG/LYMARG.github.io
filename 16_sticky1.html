@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>便签①</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .sticky {
+            background: #ffff99;
+            padding: 40px 35px;
+            max-width: 420px;
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 4px 4px 20px rgba(0,0,0,0.2);
+            transform: rotate(-2deg);
+            border: 1px solid #e8e8a0;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+        }
+        .sticky .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 16px;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 12px;
+        }
+        .sticky .content {
+            font-size: 16px;
+            line-height: 2;
+            color: #333;
+            min-height: 120px;
+        }
+        .sticky .content .hl { color: #cc3300; font-weight: bold; }
+        .sticky .footer {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+            border-top: 1px dashed #ddd;
+            padding-top: 10px;
+        }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+        .back-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .back-link:hover { color: #000; }
+    </style>
+</head>
+<body>
+
+<div class="sticky">
+    <div class="title">📌 便签 #1</div>
+    <div class="content">
+        <span class="hl">他们在听。</span><br>
+        <br>
+        不管你在哪里，不管你说什么。<br>
+        他们都能听到。<br>
+        <br>
+        我昨天在研究所外面感觉到有人在看我。<br>
+        但我回头看的时候，没有人。<br>
+        <br>
+        我开始怀疑——<br>
+        是不是我太紧张了？<br>
+        <br>
+        还是说，<span class="hl">他们真的在监视我？</span>
+    </div>
+    <div class="footer">—— 林昭 · 2023.09.11</div>
+    <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+</div>
+
+<div class="page-id">[ 16 / 45 ]</div>
+<div class="nav-links">
+    <a href="15_folder_locked.html">← 上一页</a>
+    <a href="17_sticky2.html">下一页 →</a>
+</div>
+
+</body>
+</html>

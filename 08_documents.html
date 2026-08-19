@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的文档</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .toolbar {
+            background: #d0d0d0;
+            padding: 4px 10px;
+            border-bottom: 1px solid #a0a0a0;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            font-size: 12px;
+        }
+        .toolbar .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 2px 14px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .toolbar .btn:hover { background: #d5d5d5; }
+        .address-bar {
+            background: #fff;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            padding: 4px 10px;
+            font-size: 12px;
+            color: #333;
+            margin: 6px 10px;
+            font-family: 'Courier New', monospace;
+        }
+        .content {
+            padding: 10px;
+            min-height: 280px;
+        }
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 6px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: 0.15s;
+            text-decoration: none;
+            color: #000;
+        }
+        .file-item:hover { background: #e8f0ff; }
+        .file-item .icon { font-size: 24px; width: 32px; text-align: center; }
+        .file-item .name { font-size: 13px; flex: 1; }
+        .file-item .name .ext { color: #888; font-size: 12px; }
+        .file-item .size { font-size: 11px; color: #888; width: 80px; text-align: right; }
+        .file-item .date { font-size: 11px; color: #888; width: 120px; text-align: right; }
+        .file-item.locked { opacity: 0.5; cursor: not-allowed; }
+        .file-item.locked:hover { background: transparent; }
+        .file-item .tag {
+            font-size: 9px;
+            padding: 1px 8px;
+            border-radius: 10px;
+            background: #ffd700;
+            color: #333;
+        }
+        .file-item .tag.encrypted { background: #ff6b6b; color: #fff; }
+        .status-bar {
+            background: #d0d0d0;
+            border-top: 1px solid #a0a0a0;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.15);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>📁 我的文档</span>
+        <span class="close" onclick="window.location.href='01_desktop.html'">✕</span>
+    </div>
+    <div class="toolbar">
+        <span class="btn" onclick="window.location.href='01_desktop.html'">← 后退</span>
+        <span class="btn">→ 前进</span>
+        <span class="btn">⬆ 向上</span>
+        <span class="btn" style="margin-left:auto;">📂 新建文件夹</span>
+    </div>
+    <div class="address-bar">📌 此电脑 &gt; 本地磁盘 (C:) &gt; Users &gt; 林昭 &gt; Documents</div>
+    <div class="content">
+        <div class="file-list">
+
+            <!-- 日记.txt -->
+            <a href="09_notepad.html" class="file-item">
+                <span class="icon">📄</span>
+                <span class="name">日记 <span class="ext">.txt</span></span>
+                <span class="size">2.0 KB</span>
+                <span class="date">2023-09-14</span>
+                <span class="tag">重要</span>
+            </a>
+
+            <!-- 笔记2.txt -->
+            <a href="10_notepad2.html" class="file-item">
+                <span class="icon">📄</span>
+                <span class="name">笔记2 <span class="ext">.txt</span></span>
+                <span class="size">1.0 KB</span>
+                <span class="date">2023-09-12</span>
+            </a>
+
+            <!-- 笔记3.txt -->
+            <a href="11_notepad3.html" class="file-item">
+                <span class="icon">📄</span>
+                <span class="name">笔记3 <span class="ext">.txt</span></span>
+                <span class="size">0.5 KB</span>
+                <span class="date">2023-09-10</span>
+            </a>
+
+            <!-- 论文.docx (损坏) -->
+            <div class="file-item" style="opacity:0.4;cursor:not-allowed;">
+                <span class="icon">📄</span>
+                <span class="name">毕业论文 <span class="ext">.docx</span></span>
+                <span class="size">—</span>
+                <span class="date">2023-09-01</span>
+                <span class="tag" style="background:#ff6b6b;color:#fff;">已损坏</span>
+            </div>
+
+            <!-- 备份文件夹 -->
+            <div class="file-item" style="opacity:0.4;cursor:not-allowed;">
+                <span class="icon">📁</span>
+                <span class="name">备份 <span class="ext"></span></span>
+                <span class="size">—</span>
+                <span class="date">2023-08-20</span>
+            </div>
+
+            <!-- 加密文件夹 -->
+            <div class="file-item locked">
+                <span class="icon">🔒</span>
+                <span class="name">加密文件夹 <span class="ext"></span></span>
+                <span class="size">—</span>
+                <span class="date">—</span>
+                <span class="tag encrypted">已加密</span>
+            </div>
+
+        </div>
+
+        <div style="margin-top:14px;padding:10px;background:#fff8e6;border:1px solid #ffd700;border-radius:4px;font-size:12px;color:#666;">
+            💡 提示：<span style="color:#000080;font-weight:bold;">日记.txt</span> 包含加密内容。复制加密字符串后用 Base64 解码。
+        </div>
+    </div>
+    <div class="status-bar">
+        <span>6 个项目 (2 个不可用)</span>
+        <span>📁 我的文档 · 林昭</span>
+    </div>
+</div>
+
+<div class="page-id">[ 08 / 45 ]</div>
+<div class="nav-links">
+    <a href="07_shortcut.html">← 上一页</a>
+    <a href="09_notepad.html">下一页 →</a>
+</div>
+
+</body>
+</html>

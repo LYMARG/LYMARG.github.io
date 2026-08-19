@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关机</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000080;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .shutdown-box {
+            background: #c0c0c0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            padding: 30px 35px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+        }
+        .shutdown-box .icon { font-size: 56px; display: block; margin-bottom: 8px; }
+        .shutdown-box .title { font-size: 22px; font-weight: 600; color: #000; }
+        .shutdown-box .sub { font-size: 14px; color: #555; margin-top: 4px; }
+        .shutdown-box .divider { border: none; border-top: 1px solid #a0a0a0; margin: 16px 0; }
+        .shutdown-box .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .shutdown-box .options .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.15s;
+        }
+        .shutdown-box .options .btn:hover { background: #d5d5d5; }
+        .shutdown-box .options .btn .ico { font-size: 20px; }
+        .shutdown-box .options .btn .desc { font-size: 11px; color: #666; }
+        .shutdown-box .footer {
+            margin-top: 16px;
+            font-size: 11px;
+            color: #888;
+            border-top: 1px solid #a0a0a0;
+            padding-top: 12px;
+        }
+        .back-link {
+            color: #2d7aff;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.03);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.06);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(255,255,255,0.15); }
+    </style>
+</head>
+<body>
+
+<div class="shutdown-box">
+    <span class="icon">🪟</span>
+    <div class="title">关机</div>
+    <div class="sub">你想让这台计算机执行什么操作？</div>
+    <hr class="divider">
+
+    <div class="options">
+        <div class="btn" onclick="alert('⚠️ 系统提示：这台电脑有未保存的数据。\n\n📄 日记.txt 尚未关闭。\n🎵 音频文件正在播放。\n\n确定要关机吗？')">
+            <span class="ico">⏻</span>
+            <div><div>关机</div><div class="desc">关闭计算机</div></div>
+        </div>
+        <div class="btn" onclick="alert('⚠️ 系统提示：检测到可疑活动。\n\n🔍 后台进程 echo_service.exe 正在运行。\n无法安全重启。')">
+            <span class="ico">🔄</span>
+            <div><div>重启</div><div class="desc">重新启动计算机</div></div>
+        </div>
+        <div class="btn" onclick="alert('💤 系统进入睡眠模式。\n\n所有活动将被暂停。\n\n💡 提示：E: 驱动器将在睡眠后重新锁定。')">
+            <span class="ico">🌙</span>
+            <div><div>睡眠</div><div class="desc">使计算机进入低功耗状态</div></div>
+        </div>
+        <div class="btn" style="border-color:#cc0000 #660000 #660000 #cc0000;" onclick="alert('❌ 访问被拒绝。\n\n你没有权限执行此操作。\n\n—— 系统管理员已锁定此功能')">
+            <span class="ico">🔒</span>
+            <div><div style="color:#cc0000;">取消关机</div><div class="desc">返回桌面</div></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        💡 这台电脑属于 <span style="font-weight:bold;">林昭</span> · 最后操作: 2023-09-14
+        <br>
+        <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+    </div>
+</div>
+
+<div class="page-id">[ 39 / 45 ]</div>
+<div class="nav-links">
+    <a href="38_regedit.html">← 上一页</a>
+    <a href="40_e_drive.html">下一页 →</a>
+</div>
+
+</body>
+</html>

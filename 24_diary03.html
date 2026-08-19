@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日记③ · 2023.09.05</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Georgia', 'Songti SC', 'SimSun', serif;
+            padding: 20px;
+        }
+        .page {
+            background: #2a241c;
+            padding: 40px 35px;
+            max-width: 620px;
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+            border: 1px solid #3d352b;
+        }
+        .page .header {
+            display: flex;
+            justify-content: space-between;
+            color: #6b5f4f;
+            font-size: 11px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #3d352b;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+            font-family: 'Courier New', monospace;
+        }
+        .page .title {
+            color: #b8a48a;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            margin-bottom: 6px;
+        }
+        .page .date {
+            color: #6b5f4f;
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+        .page p {
+            color: #b8a48a;
+            font-size: 15px;
+            line-height: 2.2;
+            text-indent: 2em;
+        }
+        .page p:not(:first-child) { margin-top: 10px; }
+        .page .hl { color: #d4b68a; }
+        .page .warn { color: #cc8855; }
+        .page .quote {
+            color: #6b5f4f;
+            font-style: italic;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 14px;
+            border-top: 1px solid #3d352b;
+            border-bottom: 1px solid #3d352b;
+            margin: 12px 0;
+            text-indent: 0;
+        }
+        .page .footer {
+            color: #3d352b;
+            font-size: 10px;
+            text-align: center;
+            margin-top: 24px;
+            letter-spacing: 4px;
+            border-top: 1px solid #3d352b;
+            padding-top: 14px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #6b5f4f;
+            text-decoration: none;
+            font-size: 12px;
+            font-family: 'Courier New', monospace;
+        }
+        .back-link:hover { color: #b8a48a; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.03);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.06);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="header"><span>— 03 —</span><span>第 3 页</span></div>
+    <div class="title">回声 · 旧报纸</div>
+    <div class="date">2023年9月5日 · 多云</div>
+
+    <p>我找到了第二篇报道。</p>
+    <p>2016年，一个叫 <span class="hl">周明</span> 的研究员失踪。他也是声学专业。他当时在做一个叫 <span class="warn">"声音留存"</span> 的项目。</p>
+    <p>我对比了一下：陈远（2009），周明（2016），间隔七年。</p>
+    <div class="quote">"七年。同一个地方。同一种声音。"</div>
+    <p>我开始觉得这不是巧合。这是一个规律。</p>
+    <p>我在笔记本上画了一条时间线。下一个会是谁？</p>
+
+    <div class="footer">⏤ ⏤ ⏤</div>
+    <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+</div>
+
+<div class="page-id">[ 24 / 45 ]</div>
+<div class="nav-links">
+    <a href="23_diary02.html">← 上一页</a>
+    <a href="25_diary04.html">下一页 →</a>
+</div>
+
+</body>
+</html>

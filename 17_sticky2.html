@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>便签②</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .sticky {
+            background: #ffffcc;
+            padding: 40px 35px;
+            max-width: 420px;
+            width: 100%;
+            border-radius: 4px;
+            box-shadow: 4px 4px 20px rgba(0,0,0,0.2);
+            transform: rotate(1deg);
+            border: 1px solid #e8e8a0;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+        }
+        .sticky .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 16px;
+            border-bottom: 2px dashed #ddd;
+            padding-bottom: 12px;
+        }
+        .sticky .content {
+            font-size: 16px;
+            line-height: 2;
+            color: #333;
+            min-height: 120px;
+        }
+        .sticky .content .hl { color: #000080; font-weight: bold; }
+        .sticky .content .big { font-size: 28px; font-weight: bold; color: #000080; text-align: center; display: block; margin: 8px 0; }
+        .sticky .footer {
+            margin-top: 16px;
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+            border-top: 1px dashed #ddd;
+            padding-top: 10px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .back-link:hover { color: #000; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="sticky">
+    <div class="title">📌 便签 #2</div>
+    <div class="content">
+        我明白了。<br>
+        <br>
+        <span class="big">2047</span><br>
+        <br>
+        这不是一个普通的数字。<br>
+        这是 <span class="hl">钥匙</span>。<br>
+        <br>
+        墙上的数字 · 旧笔记本里的数字 · 纸条上的数字<br>
+        都是同一个。<br>
+        <br>
+        但它是开什么的钥匙？<br>
+        <br>
+        <span style="color:#888;font-size:14px;">我还在找答案。</span>
+    </div>
+    <div class="footer">—— 林昭 · 2023.09.12</div>
+    <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+</div>
+
+<div class="page-id">[ 17 / 45 ]</div>
+<div class="nav-links">
+    <a href="16_sticky1.html">← 上一页</a>
+    <a href="18_sticky3.html">下一页 →</a>
+</div>
+
+</body>
+</html>

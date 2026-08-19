@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QQ聊天 · 匿名者</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #e8f0e8;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .chat-window {
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        .chat-header {
+            background: #2d8cff;
+            color: #fff;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chat-header .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .chat-header .name { font-weight: 600; font-size: 15px; }
+        .chat-header .status { font-size: 11px; opacity: 0.7; }
+        .chat-body {
+            padding: 16px;
+            min-height: 280px;
+            background: #f7f9fc;
+        }
+        .msg {
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+        .msg .sender {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 2px;
+            padding-left: 4px;
+        }
+        .msg .bubble {
+            max-width: 80%;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+        .msg.out .bubble {
+            background: #2d8cff;
+            color: #fff;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .msg.in .bubble {
+            background: #e8edf5;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .msg.in .sender { align-self: flex-start; padding-left: 4px; }
+        .msg.out .sender { align-self: flex-end; padding-right: 4px; }
+        .msg .time {
+            font-size: 10px;
+            color: #999;
+            margin-top: 2px;
+            padding: 0 4px;
+        }
+        .msg.out .time { align-self: flex-end; }
+        .msg.in .time { align-self: flex-start; }
+        .chat-footer {
+            padding: 12px 16px;
+            border-top: 1px solid #e8edf5;
+            background: #fff;
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #2d8cff;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.06);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.12);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.3); }
+        .hl { color: #cc3300; font-weight: bold; }
+        .warn { color: #cc5500; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="chat-window">
+    <div class="chat-header">
+        <div class="avatar">❓</div>
+        <div>
+            <div class="name">未知用户</div>
+            <div class="status">离线 · 消息已加密</div>
+        </div>
+    </div>
+    <div class="chat-body">
+
+        <div class="msg in">
+            <span class="sender">匿名 02:47</span>
+            <div class="bubble">你终于上线了。我等了你很久。</div>
+            <span class="time">02:47</span>
+        </div>
+
+        <div class="msg out">
+            <span class="sender">林昭 02:48</span>
+            <div class="bubble">你是谁？为什么会有我的QQ号？</div>
+            <span class="time">02:48</span>
+        </div>
+
+        <div class="msg in">
+            <span class="sender">匿名 02:49</span>
+            <div class="bubble">我是谁不重要。重要的是——<br><span class="hl">你已经打开了那扇门。</span></div>
+            <span class="time">02:49</span>
+        </div>
+
+        <div class="msg out">
+            <span class="sender">林昭 02:50</span>
+            <div class="bubble">什么意思？</div>
+            <span class="time">02:50</span>
+        </div>
+
+        <div class="msg in">
+            <span class="sender">匿名 02:51</span>
+            <div class="bubble">你去了北郊研究所。你看到了墙上的字。<br>你已经开始调查 <span class="warn">"回声"</span> 了。<br>你已经回不去了。</div>
+            <span class="time">02:51</span>
+        </div>
+
+        <div class="msg out">
+            <span class="sender">林昭 02:52</span>
+            <div class="bubble">你是陈远？周明？还是方琳？</div>
+            <span class="time">02:52</span>
+        </div>
+
+        <div class="msg in">
+            <span class="sender">匿名 02:54</span>
+            <div class="bubble">都不是。我只是一个 <span class="hl">回声</span>。<br>如果你想知道真相，就去 E: 驱动器。<br>密码是四个数字。<br>你已经知道了。</div>
+            <span class="time">02:54</span>
+        </div>
+
+        <div class="msg out">
+            <span class="sender">林昭 02:55</span>
+            <div class="bubble">2047？</div>
+            <span class="time">02:55</span>
+        </div>
+
+        <div class="msg in">
+            <span class="sender">匿名 02:56</span>
+            <div class="bubble">不是。那是钥匙，但不是开 E: 驱动器的。<br>再想想。<br>—— <span class="hl">你的生日</span>。</div>
+            <span class="time">02:56</span>
+        </div>
+
+        <div class="msg out">
+            <span class="sender">林昭 02:58</span>
+            <div class="bubble">……你怎么知道我的生日？</div>
+            <span class="time">02:58</span>
+        </div>
+
+        <div class="msg in">
+            <span class="sender">匿名 03:00</span>
+            <div class="bubble">因为 <span class="warn">"回声" 知道一切</span>。<br>记住——声音不会消失。只会变成回声。</div>
+            <span class="time">03:00</span>
+        </div>
+
+        <div class="msg in" style="opacity:0.5;">
+            <span class="sender">匿名 03:01</span>
+            <div class="bubble" style="background:#ddd;">（用户已离线）</div>
+            <span class="time">03:01</span>
+        </div>
+
+    </div>
+    <div class="chat-footer">
+        💬 聊天记录已保存 · 2023年9月14日
+        <br>
+        <a href="01_desktop.html" class="back-link">← 返回桌面</a>
+    </div>
+</div>
+
+<div class="page-id">[ 31 / 45 ]</div>
+<div class="nav-links">
+    <a href="30_chat1.html">← 上一页</a>
+    <a href="32_chat3.html">下一页 →</a>
+</div>
+
+</body>
+</html>

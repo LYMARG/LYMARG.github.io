@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>笔记3.txt · 记事本</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 620px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .menu-bar {
+            background: #d0d0d0;
+            padding: 2px 10px;
+            border-bottom: 1px solid #a0a0a0;
+            font-size: 12px;
+            display: flex;
+            gap: 16px;
+        }
+        .menu-bar span { cursor: default; }
+        .content {
+            padding: 16px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            background: #fff;
+            min-height: 200px;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            margin: 6px 10px 10px 10px;
+        }
+        .content .date-line {
+            color: #888;
+            font-size: 11px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+        .content .hl { color: #000080; font-weight: bold; }
+        .content .hex {
+            color: #0066aa;
+            font-size: 18px;
+            letter-spacing: 6px;
+            background: #f8f8f8;
+            padding: 6px 12px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 4px 0;
+        }
+        .btn-row {
+            padding: 8px 10px 12px 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-row .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 4px 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-row .btn:hover { background: #d5d5d5; }
+        .btn-row .btn.primary {
+            background: #000080;
+            color: #fff;
+            border-color: #4040a0 #000050 #000050 #4040a0;
+        }
+        .btn-row .btn.primary:hover { background: #0000a0; }
+        .status-bar {
+            background: #d0d0d0;
+            border-top: 1px solid #a0a0a0;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.15);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>📝 笔记3.txt · 记事本</span>
+        <span class="close" onclick="window.location.href='08_documents.html'">✕</span>
+    </div>
+    <div class="menu-bar">
+        <span>文件(F)</span>
+        <span>编辑(E)</span>
+        <span>格式(O)</span>
+        <span>查看(V)</span>
+        <span>帮助(H)</span>
+    </div>
+    <div class="content">
+        <div class="date-line">📅 最后修改: 2023年9月10日 09:15</div>
+
+        我在那本旧笔记本里找到了另一段代码。<br>
+        不知道是什么，先记下来。<br>
+        <br>
+        <span style="color:#888;font-size:11px;">—— 以下是代码 ——</span><br>
+        <span class="hex">45 43 48 4F</span><br>
+        <span style="color:#888;font-size:11px;">—— 代码结束 ——</span><br>
+        <br>
+        这看起来像是一串 <span class="hl">十六进制</span>。<br>
+        也许能转换成文字。<br>
+        <br>
+        <span style="color:#666;font-size:11px;">💡 提示: 十六进制转 ASCII</span>
+    </div>
+    <div class="btn-row">
+        <span class="btn">💾 保存</span>
+        <span class="btn primary" onclick="window.location.href='12_word.html'">📄 下一页 →</span>
+        <span class="btn" onclick="alert('🔍 十六进制解码: 45 43 48 4F 转 ASCII 为 ECHO')">❓ 解码帮助</span>
+    </div>
+    <div class="status-bar">
+        <span>📄 笔记3.txt</span>
+        <span>UTF-8 · 0.5 KB</span>
+    </div>
+</div>
+
+<div class="page-id">[ 11 / 45 ]</div>
+<div class="nav-links">
+    <a href="10_notepad2.html">← 上一页</a>
+    <a href="12_word.html">下一页 →</a>
+</div>
+
+</body>
+</html>

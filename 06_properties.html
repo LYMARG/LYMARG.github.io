@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性 · readme.txt</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .tabs {
+            display: flex;
+            background: #d0d0d0;
+            border-bottom: 1px solid #a0a0a0;
+            padding: 4px 0 0 10px;
+        }
+        .tabs .tab {
+            padding: 4px 16px;
+            background: #d0d0d0;
+            border: 1px solid #a0a0a0;
+            border-bottom: none;
+            font-size: 12px;
+            cursor: default;
+            margin-right: 2px;
+        }
+        .tabs .tab.active {
+            background: #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+            font-weight: bold;
+        }
+        .content {
+            padding: 16px 20px;
+            background: #f0f0f0;
+            min-height: 220px;
+        }
+        .content .row {
+            display: flex;
+            padding: 4px 0;
+            font-size: 13px;
+            align-items: center;
+        }
+        .content .row .label {
+            width: 100px;
+            color: #555;
+            flex-shrink: 0;
+        }
+        .content .row .value { color: #000; word-break: break-all; }
+        .content .row .value .hl { color: #000080; font-weight: bold; }
+        .content .row .value .warn { color: #cc5500; }
+        .content .divider { border: none; border-top: 1px solid #ddd; margin: 8px 0; }
+        .content .hint-box {
+            background: #fff8e6;
+            border: 1px solid #ffd700;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        .content .hint-box .hl { color: #000080; font-weight: bold; }
+        .btn-row {
+            padding: 10px 20px 16px 20px;
+            background: #f0f0f0;
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            border-top: 1px solid #ddd;
+        }
+        .btn-row .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 4px 24px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-row .btn:hover { background: #d5d5d5; }
+        .btn-row .btn.primary {
+            background: #000080;
+            color: #fff;
+            border-color: #4040a0 #000050 #000050 #4040a0;
+        }
+        .btn-row .btn.primary:hover { background: #0000a0; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.15);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>📄 readme.txt 属性</span>
+        <span class="close" onclick="window.location.href='05_restored.html'">✕</span>
+    </div>
+    <div class="tabs">
+        <span class="tab active">常规</span>
+        <span class="tab">安全</span>
+        <span class="tab">详细信息</span>
+        <span class="tab">以前的版本</span>
+    </div>
+    <div class="content">
+        <div class="row">
+            <span class="label">文件名</span>
+            <span class="value"><span class="hl">readme.txt</span></span>
+        </div>
+        <div class="row">
+            <span class="label">文件类型</span>
+            <span class="value">文本文档 (.txt)</span>
+        </div>
+        <div class="row">
+            <span class="label">打开方式</span>
+            <span class="value">记事本</span>
+        </div>
+        <div class="row">
+            <span class="label">位置</span>
+            <span class="value">C:\Users\linzhao\Desktop\</span>
+        </div>
+        <div class="row">
+            <span class="label">大小</span>
+            <span class="value">2.00 KB (2,048 字节)</span>
+        </div>
+        <div class="row">
+            <span class="label">占用空间</span>
+            <span class="value">4.00 KB</span>
+        </div>
+        <hr class="divider">
+        <div class="row">
+            <span class="label">创建时间</span>
+            <span class="value">2023年9月14日 23:50</span>
+        </div>
+        <div class="row">
+            <span class="label">修改时间</span>
+            <span class="value">2023年9月14日 23:50</span>
+        </div>
+        <div class="row">
+            <span class="label">访问时间</span>
+            <span class="value">2023年9月14日 23:50</span>
+        </div>
+        <hr class="divider">
+        <div class="row">
+            <span class="label">属性</span>
+            <span class="value">📌 <span class="hl">只读</span> · <span class="warn">隐藏</span> · 存档</span>
+        </div>
+
+        <div class="hint-box">
+            💡 <span class="hl">隐藏属性</span>：此文件有"隐藏"属性。在文件资源管理器中需要启用"显示隐藏文件"才能看到。<br>
+            <br>
+            <span style="color:#999;font-size:11px;">🔍 额外信息：文件元数据中包含以下注释 —</span><br>
+            <span style="color:#000080;font-family:'Courier New',monospace;font-size:12px;">"注意：E: 驱动器的密码与 2047 有关"</span>
+        </div>
+    </div>
+    <div class="btn-row">
+        <span class="btn">应用(A)</span>
+        <span class="btn primary" onclick="window.location.href='05_restored.html'">确定</span>
+        <span class="btn" onclick="window.location.href='05_restored.html'">取消</span>
+    </div>
+</div>
+
+<div class="page-id">[ 06 / 45 ]</div>
+<div class="nav-links">
+    <a href="05_restored.html">← 上一页</a>
+    <a href="07_shortcut.html">下一页 →</a>
+</div>
+
+</body>
+</html>

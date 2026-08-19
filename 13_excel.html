@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>名单.xlsx · Excel</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .menu-bar {
+            background: #d0d0d0;
+            padding: 2px 10px;
+            border-bottom: 1px solid #a0a0a0;
+            font-size: 12px;
+            display: flex;
+            gap: 16px;
+        }
+        .menu-bar span { cursor: default; }
+        .content {
+            padding: 12px 16px;
+            background: #fff;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            margin: 6px 10px 10px 10px;
+            overflow-x: auto;
+        }
+        .content .table-wrap { font-family: 'Segoe UI', sans-serif; font-size: 13px; }
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .content table th {
+            background: #000080;
+            color: #fff;
+            padding: 6px 10px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 12px;
+        }
+        .content table td {
+            padding: 5px 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+        .content table tr:hover td { background: #f5f5f5; }
+        .content table .highlight { color: #cc5500; font-weight: bold; }
+        .content table .note { color: #888; font-size: 11px; }
+        .content .footer-note {
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: #f8f8f8;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+            border-left: 3px solid #ffd700;
+        }
+        .btn-row {
+            padding: 8px 10px 12px 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-row .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 4px 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-row .btn:hover { background: #d5d5d5; }
+        .btn-row .btn.primary {
+            background: #000080;
+            color: #fff;
+            border-color: #4040a0 #000050 #000050 #4040a0;
+        }
+        .btn-row .btn.primary:hover { background: #0000a0; }
+        .status-bar {
+            background: #d0d0d0;
+            border-top: 1px solid #a0a0a0;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.15);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>📊 名单.xlsx · Excel</span>
+        <span class="close" onclick="window.location.href='08_documents.html'">✕</span>
+    </div>
+    <div class="menu-bar">
+        <span>文件(F)</span>
+        <span>编辑(E)</span>
+        <span>视图(V)</span>
+        <span>插入(I)</span>
+        <span>格式(O)</span>
+        <span>数据(D)</span>
+        <span>工具(T)</span>
+    </div>
+    <div class="content">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>年份</th>
+                        <th>状态</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>陈远</td>
+                        <td>2009</td>
+                        <td><span class="highlight">失踪</span></td>
+                        <td class="note">北郊研究所 · 火灾</td>
+                    </tr>
+                    <tr>
+                        <td>周明</td>
+                        <td>2016</td>
+                        <td><span class="highlight">失踪</span></td>
+                        <td class="note">研究"声音留存"项目</td>
+                    </tr>
+                    <tr>
+                        <td>方琳</td>
+                        <td>2020</td>
+                        <td><span class="highlight">失踪</span></td>
+                        <td class="note">最后出现在北郊</td>
+                    </tr>
+                    <tr style="background:#fff8e6;">
+                        <td><span style="color:#cc5500;font-weight:bold;">林昭</span></td>
+                        <td>2023</td>
+                        <td><span style="color:#ff0000;font-weight:bold;">已失联</span></td>
+                        <td class="note">⚠️ 最后一条微博: 2023-09-14</td>
+                    </tr>
+                    <tr>
+                        <td>?</td>
+                        <td>2030</td>
+                        <td><span style="color:#888;">未知</span></td>
+                        <td class="note">下一个？</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="footer-note">
+                💡 <span style="color:#000080;font-weight:bold;">每隔七年</span>，有人失踪。<br>
+                2009 → 2016 → 2020 → 2023 → ?<br>
+                这个规律让我害怕。
+            </div>
+        </div>
+    </div>
+    <div class="btn-row">
+        <span class="btn">💾 保存</span>
+        <span class="btn" onclick="alert('🔍 2009年陈远失踪。2016年周明失踪。2020年方琳失踪。2023年林昭失踪。规律是每隔4-7年。')">📊 分析规律</span>
+        <span class="btn primary" onclick="window.location.href='14_pdf.html'">📄 下一页 →</span>
+    </div>
+    <div class="status-bar">
+        <span>📊 名单.xlsx</span>
+        <span>4 行数据</span>
+    </div>
+</div>
+
+<div class="page-id">[ 13 / 45 ]</div>
+<div class="nav-links">
+    <a href="12_word.html">← 上一页</a>
+    <a href="14_pdf.html">下一页 →</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>readme.txt · 记事本</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #c0c0c0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            padding: 20px;
+        }
+        .window {
+            background: #f0f0f0;
+            border: 3px solid;
+            border-color: #fff #808080 #808080 #fff;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 4px 4px 30px rgba(0,0,0,0.3);
+        }
+        .win-title {
+            background: #000080;
+            color: #fff;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .win-title .close {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #000;
+            line-height: 20px;
+        }
+        .win-title .close:hover { background: #e0e0e0; }
+        .menu-bar {
+            background: #d0d0d0;
+            padding: 2px 10px;
+            border-bottom: 1px solid #a0a0a0;
+            font-size: 12px;
+            display: flex;
+            gap: 16px;
+        }
+        .menu-bar span { cursor: default; }
+        .content {
+            padding: 16px 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            background: #fff;
+            min-height: 200px;
+            border: 2px solid;
+            border-color: #808080 #fff #fff #808080;
+            margin: 6px 10px 10px 10px;
+        }
+        .content .date-line {
+            color: #888;
+            font-size: 11px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+        .content .hl { color: #000080; font-weight: bold; }
+        .content .warn { color: #cc5500; }
+        .status-bar {
+            background: #d0d0d0;
+            border-top: 1px solid #a0a0a0;
+            padding: 3px 12px;
+            font-size: 11px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn-row {
+            padding: 8px 10px 12px 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn-row .btn {
+            background: #c0c0c0;
+            border: 2px solid;
+            border-color: #fff #808080 #808080 #fff;
+            padding: 4px 20px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .btn-row .btn:hover { background: #d5d5d5; }
+        .page-id {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(0,0,0,0.08);
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 4px;
+        }
+        .nav-links {
+            position: fixed;
+            bottom: 36px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            z-index: 50;
+        }
+        .nav-links a {
+            color: rgba(0,0,0,0.15);
+            text-decoration: none;
+            font-family: 'Courier New', monospace;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+<div class="window">
+    <div class="win-title">
+        <span>📄 readme.txt · 记事本</span>
+        <span class="close" onclick="window.location.href='01_desktop.html'">✕</span>
+    </div>
+    <div class="menu-bar">
+        <span>文件(F)</span>
+        <span>编辑(E)</span>
+        <span>格式(O)</span>
+        <span>查看(V)</span>
+        <span>帮助(H)</span>
+    </div>
+    <div class="content">
+        <div class="date-line">📅 创建于: 2023-09-14 23:50 · 最后修改: 2023-09-14 23:50</div>
+
+        <span class="warn">⚠️ 如果你在看这个文件，说明你已经还原了它。</span><br>
+        <br>
+        你好，后来的读者。<br>
+        <br>
+        我叫 <span class="hl">林昭</span>。我不知道你是谁，也不知道你什么时候看到这些。<br>
+        但我需要你帮我做一件事。<br>
+        <br>
+        <span class="hl">去我的文档，打开日记.txt。</span><br>
+        <br>
+        那个文件里有我留下的所有线索。<br>
+        你会在里面找到一个加密的字符串。<br>
+        把它复制下来，用 Base64 解码。<br>
+        <br>
+        解出来的东西，就是打开 <span class="hl">E: 驱动器</span> 的其中一个密码。<br>
+        <br>
+        你还会需要其他密码。<br>
+        它们藏在别的地方。<br>
+        仔细找。<br>
+        <br>
+        —— 林昭 · 2023年9月14日
+    </div>
+    <div class="btn-row">
+        <span class="btn" onclick="alert('✅ 文件已保存。')">💾 保存</span>
+        <span class="btn" onclick="window.location.href='08_documents.html'">📁 去我的文档</span>
+        <span class="btn" onclick="window.location.href='04_recycle.html'">🗑️ 回收站</span>
+    </div>
+    <div class="status-bar">
+        <span>📄 readme.txt</span>
+        <span>UTF-8 · 2.0 KB</span>
+    </div>
+</div>
+
+<div class="page-id">[ 05 / 45 ]</div>
+<div class="nav-links">
+    <a href="04_recycle.html">← 上一页</a>
+    <a href="06_properties.html">下一页 →</a>
+</div>
+
+</body>
+</html>
