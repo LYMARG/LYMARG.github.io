@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>循环播放 · nppl.mp4</title>
+  <style>
+    /* 隐藏所有边距，让视频全屏显示 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000; /* 深色背景，视频边缘更和谐 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;      /* 防止出现滚动条 */
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* 视频容器：全屏居中，保持视频比例 */
+    .video-container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* 视频元素本身：适应容器，保持宽高比，并循环播放 */
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;   /* 视频完整显示，不裁剪，留黑边 */
+      background-color: #000;
+      display: block;
+      /* 可选：轻微圆角，增强现代感（如需全屏无圆角可注释） */
+      /* border-radius: 12px; */
+    }
+
+    /* 增加一个低调的提示文字，显示播放状态 (不需要可以删除) */
+    .status-badge {
+      position: absolute;
+      bottom: 18px;
+      right: 18px;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(4px);
+      color: #eee;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      pointer-events: none;   /* 让点击穿透到视频 */
+      user-select: none;
+      z-index: 10;
+      transition: opacity 0.2s;
+    }
+
+    /* 响应式小屏幕调整 */
+    @media (max-width: 600px) {
+      .status-badge {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+        bottom: 12px;
+        right: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <!-- 
+      视频标签： 
+      - 使用相对路径 "nppl.mp4" 即根目录下的文件
+      - autoplay + loop + muted 保证自动循环播放
+      - playsinline 针对移动端内联播放
+      - 禁用下载/画中画等控件 (如需用户交互可加 controls)
+    -->
+    <video 
+      id="bgVideo"
+      src="nppl.mp4"
+      autoplay 
+      loop 
+      muted 
+      playsinline
+      preload="auto"
+    >
+      您的浏览器不支持 HTML5 视频播放，请升级浏览器。
+    </video>
+
+    <!-- 简单状态指示（纯装饰，可删除） -->
+    <div class="status-badge" id="statusBadge">🔁 循环播放中</div>
+  </div>
+
+  <script>
+    (function() {
+      const video = document.getElementById('bgVideo');
+      const badge = document.getElementById('statusBadge');
+
+      // 确保视频在加载后尝试播放（部分浏览器由于自动播放策略需要静音且用户交互后）
+      // 但 muted + autoplay 在绝大多数现代浏览器都允许自动播放。
+      // 监听播放状态以更新徽章（可选）
+      
+      function updateBadge() {
+        if (video.paused) {
+          badge.textContent = '⏸️ 已暂停';
+        } else {
+          badge.textContent = '🔁 循环播放中';
+        }
+      }
+
+      // 初始更新
+      updateBadge();
+
+      // 监听播放/暂停事件，更新状态显示
+      video.addEventListener('play', updateBadge);
+      video.addEventListener('pause', updateBadge);
+
+      // 防止在某些移动端或浏览器上自动播放失败，尝试在加载后再次调用播放
+      // 同时处理错误情况（如文件不存在）
+      video.addEventListener('canplay', function() {
+        // 尝试播放（如果因为某些原因没有自动播放）
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            // 自动播放被阻止——但因为我们有muted，通常不会
+            console.warn('自动播放被阻止，请手动点击播放。', error);
+            badge.textContent = '⏸️ 点击播放';
+            // 添加一次点击监听器，让用户可以通过点击页面播放
+            document.body.addEventListener('click', function once() {
+              video.play();
+              document.body.removeEventListener('click', once);
+            }, { once: true });
+          });
+        }
+      });
+
+      // 视频加载错误处理（例如文件不存在）
+      video.addEventListener('error', function(e) {
+        console.error('视频加载失败:', video.error);
+        badge.textContent = '⚠️ 视频加载失败';
+        badge.style.background = 'rgba(180, 40, 40, 0.8)';
+        badge.style.color = '#fff';
+        // 可提供简单提示
+        const container = document.querySelector('.video-container');
+        if (container) {
+          const errMsg = document.createElement('div');
+          errMsg.style.position = 'absolute';
+          errMsg.style.top = '50%';
+          errMsg.style.left = '50%';
+          errMsg.style.transform = 'translate(-50%, -50%)';
+          errMsg.style.color = '#fff';
+          errMsg.style.background = 'rgba(0,0,0,0.7)';
+          errMsg.style.padding = '20px 30px';
+          errMsg.style.borderRadius = '12px';
+          errMsg.style.fontSize = '1.1rem';
+          errMsg.style.textAlign = 'center';
+          errMsg.style.backdropFilter = 'blur(8px)';
+          errMsg.innerHTML = '无法加载视频 “nppl.mp4”<br><span style="font-size:0.9rem;opacity:0.8;">请确认文件存在于网站根目录</span>';
+          container.appendChild(errMsg);
+        }
+      });
+
+      // 页面关闭前不需要特殊处理
+    })();
+  </script>
+</body>
+</html>
