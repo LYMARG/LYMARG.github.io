@@ -5,33 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>你被骗了！</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    .video-container {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; position: relative;
     }
-    html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #000;
+    .video-container video {
+      width: 100%; height: 100%;
+      object-fit: contain; background: #000; display: block;
     }
-    iframe {
-      display: block;
-      width: 100%;
-      height: 100%;
-      border: none;
+    #errorMsg {
+      position: absolute; color: #fff; background: rgba(180,40,40,0.85);
+      padding: 20px 28px; border-radius: 12px; font-size: 1rem;
+      display: none; text-align: center; backdrop-filter: blur(6px);
     }
   </style>
 </head>
 <body>
-  <iframe 
-    src="//player.bilibili.com/player.html?isOutside=true&aid=80433022&bvid=BV1GJ411x7h7&cid=137649199&p=1&danmaku=0&muted=0" 
-    scrolling="no" 
-    border="0" 
-    frameborder="no" 
-    framespacing="0" 
-    allowfullscreen="true">
-  </iframe>
+  <div class="video-container" id="videoContainer">
+    <video id="bgVideo" src="nppl.mp4" autoplay loop playsinline preload="auto">
+      您的浏览器不支持 HTML5 视频播放。
+    </video>
+    <div id="errorMsg"></div>
+  </div>
+
+  <script>
+    (function() {
+      const video = document.getElementById('bgVideo');
+      const container = document.getElementById('videoContainer');
+      const errorMsg = document.getElementById('errorMsg');
+
+      container.addEventListener('click', function() {
+        if (video.paused) video.play();
+        else video.pause();
+      });
+
+      video.addEventListener('canplay', function() {
+        const p = video.play();
+        if (p !== undefined) {
+          p.catch(err => console.warn('自动播放被拦截，点击画面播放。', err));
+        }
+      });
+
+      video.addEventListener('error', function() {
+        const err = video.error;
+        let msg = '视频加载失败。';
+        if (err) {
+          switch (err.code) {
+            case 1: msg = '视频加载被中止。'; break;
+            case 2: msg = '网络错误，无法加载视频。'; break;
+            case 3: msg = '视频解码失败，文件可能已损坏。'; break;
+            case 4: msg = '视频格式不支持，或文件不存在（检查文件名和路径）。'; break;
+          }
+        }
+        errorMsg.textContent = msg;
+        errorMsg.style.display = 'block';
+        console.error('视频错误详情:', err);
+      });
+    })();
+  </script>
 </body>
 </html>
